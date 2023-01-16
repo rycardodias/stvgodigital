@@ -14,19 +14,20 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 import useTranslation from 'next-translate/useTranslation'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 const pages: ReadonlyArray<string> = ['Backoffice'];
 const settings: ReadonlyArray<string> = ['Logout'];
 
 function ResponsiveAppBar() {
   const { t, lang } = useTranslation('common')
+  const { data: session, status } = useSession()
 
   const appTitle = t('AppTitle')
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const [isLoggedIn, setIsLoggedIn] = React.useState<Boolean>(false)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,11 +45,11 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    signOut();
   }
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    signIn();
   }
 
   return (
@@ -72,12 +73,14 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: 'block', md: 'none' }, }}
               open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} href={page.toLowerCase()}>
                   <Typography textAlign="center">{t(page)}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5" noWrap component="a" href=""
@@ -88,12 +91,13 @@ function ResponsiveAppBar() {
             }}>{appTitle}</Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}
+                component={Link} href={page.toLowerCase()}>
                 {t(page)}
               </Button>
             ))}
           </Box>
-          {isLoggedIn ? <Box sx={{ flexGrow: 0 }}>
+          {session && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={t('Open settings')}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp"// src="/static/images/avatar/2.jpg" 
@@ -114,7 +118,8 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-            :
+          }
+          {!session && status !== "loading" &&
             <Button key={"login"} onClick={handleLogin} sx={{ my: 2, color: 'white', display: 'block' }}>
               {t('Login')}
             </Button>
@@ -123,7 +128,7 @@ function ResponsiveAppBar() {
 
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 }
 export default ResponsiveAppBar;
