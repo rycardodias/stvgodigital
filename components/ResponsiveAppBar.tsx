@@ -14,15 +14,26 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 import useTranslation from 'next-translate/useTranslation'
-import { useSession, signIn, signOut } from 'next-auth/react'
+// import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 
 const pages: ReadonlyArray<string> = ['Backoffice'];
 const settings: ReadonlyArray<string> = ['Logout'];
 
-function ResponsiveAppBar() {
+type SessionProps = {
+  session: {
+    user: {
+      name: string,
+      permission: string
+    },
+    error: any,
+    login: any,
+    logout: any
+  };
+}
+
+function ResponsiveAppBar({ session }: SessionProps) {
   const { t, lang } = useTranslation('common')
-  const { data: session, status } = useSession()
 
   const appTitle = t('AppTitle')
 
@@ -34,6 +45,7 @@ function ResponsiveAppBar() {
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
+    console.log(event.currentTarget)
   };
 
   const handleCloseNavMenu = () => {
@@ -45,11 +57,7 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    signOut();
-  }
-
-  const handleLogin = () => {
-    signIn();
+    session.logout();
   }
 
   return (
@@ -57,11 +65,12 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography variant="h6" noWrap component="a" href="/"
+          <Typography variant="h6" noWrap component={Link} href={"/"}
             sx={{
               mr: 2, display: { xs: 'none', md: 'flex' }, fontFamily: 'monospace', fontWeight: 700,
               letterSpacing: '.3rem', color: 'inherit', textDecoration: 'none',
             }}>{appTitle}</Typography>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar"
@@ -72,8 +81,9 @@ function ResponsiveAppBar() {
               anchorEl={anchorElNav} anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }} keepMounted
               sx={{ display: { xs: 'block', md: 'none' }, }}
               open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} href={page.toLowerCase()}>
+              {pages.map((page, index) => (
+
+                <MenuItem key={index} onClick={handleCloseNavMenu} component={Link} href={page.toLowerCase()}>
                   <Typography textAlign="center">{t(page)}</Typography>
                 </MenuItem>
               ))}
@@ -82,13 +92,14 @@ function ResponsiveAppBar() {
 
 
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5" noWrap component="a" href=""
+
+          <Typography variant="h5" noWrap component={Link} href={"/"}
             sx={{
               mr: 2, display: { xs: 'flex', md: 'none' },
               flexGrow: 1, fontFamily: 'monospace', fontWeight: 700,
               letterSpacing: '.3rem', color: 'inherit', textDecoration: 'none',
             }}>{appTitle}</Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}
@@ -97,32 +108,43 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          {session && <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={t('Open settings')}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp"// src="/static/images/avatar/2.jpg" 
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu sx={{ mt: '45px' }} id="menu-appbar" anchorEl={anchorElUser} keepMounted
-              anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
-              transformOrigin={{ vertical: 'top', horizontal: 'right', }}
-              open={Boolean(anchorElUser)} onClose={handleCloseUserMenu}>
-              {settings.map((setting) => (
-                <MenuItem key={t(setting)} onClick={() => {
-                  setting === "Logout" && handleLogout()
-                }
-                }>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+
+          {session.user.permission
+            && (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title={t('Open settings')}>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp"// src="/static/images/avatar/2.jpg" 
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu sx={{ mt: '45px' }} id="menu-appbar" anchorEl={anchorElUser} keepMounted
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+                  transformOrigin={{ vertical: 'top', horizontal: 'right', }}
+                  open={Boolean(anchorElUser)} onClose={handleCloseUserMenu}>
+
+                  {settings.map((setting) => (
+                    <MenuItem key={setting.toLowerCase()} onClick={() => {
+                      handleCloseUserMenu()
+
+                      setting === "Logout" && handleLogout()
+                    }
+                    }>
+                      <Typography textAlign="center">{t(setting)}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            )
           }
-          {!session && status !== "loading" &&
-            <Button key={"login"} onClick={handleLogin} sx={{ my: 2, color: 'white', display: 'block' }}>
-              {t('Login')}
-            </Button>
+
+          {!session.user.permission
+            && (
+              <Button key={"login"} component={Link} href={'/login'}
+                sx={{ my: 2, color: 'white', display: 'block' }}>
+                {t('Login')}
+              </Button>
+            )
           }
 
 

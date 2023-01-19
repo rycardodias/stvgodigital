@@ -5,24 +5,37 @@ import '@fontsource/roboto/700.css';
 import "./global.css";
 import type { AppProps } from 'next/app'
 
-import { SessionProvider } from "next-auth/react"
-
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 
 import Head from 'next/head'
+import ClientSession from 'components/ClientSession';
+import { SessionProvider } from "next-auth/react"
+import Link from 'next/link';
 
-const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
   return (
-    <SessionProvider session={session}>
-      <Head>
-        <title>StvGoDigital</title>
-        <meta name="description" content="Portal de StvGoDigital" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <ResponsiveAppBar />
-      <Component {...pageProps} />
-    </SessionProvider>
+    <ClientSession>
+      {(...clientSession: any) => {
+        let session = clientSession[0]
+
+        return (
+          <>
+            <Head>
+              <title>StvGoDigital</title>
+              <meta name="description" content="Portal de StvGoDigital" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <ResponsiveAppBar session={session} />
+            {session.error ? <Link href="/login"></Link>
+              : <Component {...pageProps} session={session} />
+            }
+
+
+          </>
+        )
+      }}
+    </ClientSession>
   )
 }
 
