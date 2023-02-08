@@ -3,5 +3,13 @@
     "Login": "Entrar",
     "Logout": "Sair",
     "Open settings": "Abrir definições",
-    "Backoffice": "Gestão de dados"
+    "delete": "Eliminar",
+    "update": "Alterar",
+    "add": "Adicionar",
+    "Backoffice": "Gestão de dados",
+    "id": "Identificador",
+    "legalName": "Nome Legal",
+    "shortName": "Nome Curto",
+    "fiscalNumber": "Número Fiscal",
+    "caeType": "Tipo Cae"
 }

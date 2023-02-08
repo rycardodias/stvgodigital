@@ -5,12 +5,9 @@ import sendRequest from "../lib/requests"
 import ls from 'localstorage-slim';
 import { useRouter } from 'next/router';
 
-
-
 export default function ClientSessionWithRouter(props) {
     const router = useRouter()
     return <ClientSession {...props} router={router} />
-
 }
 
 class ClientSession extends React.Component {
@@ -36,7 +33,7 @@ class ClientSession extends React.Component {
 
             if (response.error) throw response.error
 
-            if (response.data) this.setState({ user: response.data })
+            if (response.data) this.setState({ user: response.data, error: false })
 
             ls.set('user', JSON.stringify(response.data));
 
@@ -49,8 +46,6 @@ class ClientSession extends React.Component {
     }
 
     logout = async () => {
-
-
         await sendRequest('/users/logout', 'POST', undefined)
         this.setState({ user: { name: null, permission: null } })
         ls.remove('user');

@@ -6,15 +6,13 @@ import UnAuthenticated from 'components/UnAuthenticated'
 import SessionInterface from 'interfaces/SessionInterface'
 import useTranslation from 'next-translate/useTranslation'
 
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Grid, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
-import TablesList from 'components/backoffice/TablesList'
+import { GridColDef } from '@mui/x-data-grid';
+import { Grid } from '@mui/material'
+import TableGridList from 'components/backoffice/TablesList'
 import DataGridComponent from 'components/backoffice/BackofficeLayout'
 
 export default function index({ session }: SessionInterface) {
-    if (!session.user.permission) {
-        return UnAuthenticated()
-    }
+    if (!session.user.permission) return <UnAuthenticated />
 
     const { t, lang } = useTranslation('common')
 
@@ -31,10 +29,9 @@ export default function index({ session }: SessionInterface) {
         { field: 'caeType', headerName: t('caeType'), flex: 1, },
     ];
 
+    //TODO: criar um layout para isto tudo
     return (
-        <Grid container spacing={2}>
-            <TablesList />
-        </Grid>
+        <DataGridComponent rows={data.data} columns={columns} />
     )
 }
 

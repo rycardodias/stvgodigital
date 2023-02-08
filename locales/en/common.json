@@ -3,5 +3,13 @@
     "Login": "Login",
     "Logout": "Logout",
     "Open settings": "Open Settings",
-    "backoffice": "Backoffice"
+    "delete": "Delete",
+    "update": "Update",
+    "add": "Add",
+    "backoffice": "Backoffice",
+    "id": "identifier",
+    "legalName": "Legal Name",
+    "shortName": "Short Name",
+    "fiscalNumber": "Fiscal Number",
+    "caeType": "Cae Type"
 }

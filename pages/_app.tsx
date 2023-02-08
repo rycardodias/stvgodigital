@@ -9,7 +9,6 @@ import ResponsiveAppBar from '../components/ResponsiveAppBar';
 
 import Head from 'next/head'
 import ClientSession from 'components/ClientSession';
-import { SessionProvider } from "next-auth/react"
 import Link from 'next/link';
 
 const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
@@ -27,7 +26,7 @@ const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <ResponsiveAppBar session={session} />
-            {session.error ? <Link href="/login"></Link>
+            {session.error ? <Link href="/login">Login</Link>
               : <Component {...pageProps} session={session} />
             }
 

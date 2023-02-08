@@ -14,25 +14,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 import useTranslation from 'next-translate/useTranslation'
-// import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
+import SessionInterface from 'interfaces/SessionInterface';
 
-const pages: ReadonlyArray<string> = ['Backoffice'];
+const pages: ReadonlyArray<any> = [{ name: 'Backoffice', permissions: ['ADMIN', 'USER'] }];
 const settings: ReadonlyArray<string> = ['Logout'];
 
-type SessionProps = {
-  session: {
-    user: {
-      name: string,
-      permission: string
-    },
-    error: any,
-    login: any,
-    logout: any
-  };
-}
-
-function ResponsiveAppBar({ session }: SessionProps) {
+function ResponsiveAppBar({ session }: SessionInterface) {
   const { t, lang } = useTranslation('common')
 
   const appTitle = t('AppTitle')
@@ -45,7 +33,6 @@ function ResponsiveAppBar({ session }: SessionProps) {
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-    console.log(event.currentTarget)
   };
 
   const handleCloseNavMenu = () => {
@@ -62,7 +49,7 @@ function ResponsiveAppBar({ session }: SessionProps) {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography variant="h6" noWrap component={Link} href={"/"}
@@ -81,12 +68,15 @@ function ResponsiveAppBar({ session }: SessionProps) {
               anchorEl={anchorElNav} anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }} keepMounted
               sx={{ display: { xs: 'block', md: 'none' }, }}
               open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
-              {pages.map((page, index) => (
+              {pages.map((page, index) => {
 
-                <MenuItem key={index} onClick={handleCloseNavMenu} component={Link} href={page.toLowerCase()}>
-                  <Typography textAlign="center">{t(page)}</Typography>
-                </MenuItem>
-              ))}
+                if (page.permissions.includes(session.user.permission))
+                  return (
+                    <MenuItem key={index} onClick={handleCloseNavMenu} component={Link} href={'/' + page.name.toLowerCase()}>
+                      <Typography textAlign="center">{t(page.name)}</Typography>
+                    </MenuItem>
+                  )
+              })}
             </Menu>
           </Box>
 
@@ -101,12 +91,15 @@ function ResponsiveAppBar({ session }: SessionProps) {
             }}>{appTitle}</Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}
-                component={Link} href={page.toLowerCase()}>
-                {t(page)}
-              </Button>
-            ))}
+            {pages.map((page) => {
+              if (page.permissions.includes(session.user.permission))
+                return (
+                  <Button key={page.name} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}
+                    component={Link} href={'/' + page.name.toLowerCase()}>
+                    {t(page.name)}
+                  </Button>
+                )
+            })}
           </Box>
 
           {session.user.permission
@@ -126,7 +119,6 @@ function ResponsiveAppBar({ session }: SessionProps) {
                   {settings.map((setting) => (
                     <MenuItem key={setting.toLowerCase()} onClick={() => {
                       handleCloseUserMenu()
-
                       setting === "Logout" && handleLogout()
                     }
                     }>
