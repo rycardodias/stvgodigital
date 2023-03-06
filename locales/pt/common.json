@@ -11,5 +11,7 @@
     "legalName": "Nome Legal",
     "shortName": "Nome Curto",
     "fiscalNumber": "Número Fiscal",
-    "caeType": "Tipo Cae"
+    "caeType": "Tipo Cae",
+    "addRecord": "Adicionar Registo",
+    "actions": "Ações"
 }

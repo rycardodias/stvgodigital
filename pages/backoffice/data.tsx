@@ -7,7 +7,7 @@ export default function index({ session }: SessionInterface) {
     if (!session.user.permission) return <UnAuthenticated />
 
     return (
-        <DataGridComponent tableName="companies" />
+        <DataGridComponent tableName="data" />
     )
 }
 

@@ -17,7 +17,7 @@ import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import SessionInterface from 'interfaces/SessionInterface';
 
-const pages: ReadonlyArray<any> = [{ name: 'Backoffice', permissions: ['ADMIN', 'USER'] }];
+const pages: ReadonlyArray<any> = [{ name: 'Backoffice', permissions: ['ADMIN',] }];
 const settings: ReadonlyArray<string> = ['Logout'];
 
 function ResponsiveAppBar({ session }: SessionInterface) {
