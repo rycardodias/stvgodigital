@@ -9,6 +9,7 @@ interface TableEndpoints {
 
 interface TableConfig {
     [tableName: string]: {
+        onChain: boolean;
         name: string;
         url: string;
         columns: GridColDef[];
@@ -18,7 +19,8 @@ interface TableConfig {
 
 export const tableConfig: TableConfig = {
     activityTypeData: {
-        name: 'Activity Type Data',
+        onChain: false,
+        name: 'Activity Types',
         url: "/backoffice/activityTypeData",
         columns:
             [
@@ -35,6 +37,7 @@ export const tableConfig: TableConfig = {
         }
     },
     activityTypeIndicator: {
+        onChain: false,
         name: "Activity Type Indicator",
         url: "/backoffice/activityTypeIndicator",
         columns:
@@ -51,6 +54,7 @@ export const tableConfig: TableConfig = {
         }
     },
     batchCertification: {
+        onChain: false,
         name: "Batch Certification",
         url: "/backoffice/batchCertification",
         columns:
@@ -70,6 +74,7 @@ export const tableConfig: TableConfig = {
         }
     },
     batchCertificationType: {
+        onChain: false,
         name: "Batch Certification Types",
         url: "/backoffice/batchCertificationType",
         columns:
@@ -86,6 +91,7 @@ export const tableConfig: TableConfig = {
         }
     },
     certifyingEntity: {
+        onChain: false,
         name: "Certifying Entities",
         url: "/backoffice/certifyingEntity",
         columns:
@@ -104,7 +110,8 @@ export const tableConfig: TableConfig = {
         }
     },
     circularEnvironmentalData: {
-        name: "Circular Environmental Data",
+        onChain: false,
+        name: "Circular Environmental",
         url: "/backoffice/circularEnvironmentalData",
         columns:
             [
@@ -122,7 +129,8 @@ export const tableConfig: TableConfig = {
         }
     },
     circularEnvironmentalFinalData: {
-        name: "Circular Environmental Final Data",
+        onChain: false,
+        name: "Circular Environmental Final",
         url: "/backoffice/circularEnvironmentalFinalData",
         columns:
             [
@@ -138,6 +146,7 @@ export const tableConfig: TableConfig = {
         }
     },
     companies: {
+        onChain: false,
         name: "Companies",
         url: "/backoffice/companies",
         columns:
@@ -156,6 +165,7 @@ export const tableConfig: TableConfig = {
         }
     },
     companyCertification: {
+        onChain: false,
         name: "Companies Certifications",
         url: "/backoffice/companyCertification",
         columns:
@@ -175,6 +185,7 @@ export const tableConfig: TableConfig = {
         }
     },
     companyCertificationType: {
+        onChain: false,
         name: "Company Certification Type",
         url: "/backoffice/companyCertificationType",
         columns:
@@ -192,6 +203,7 @@ export const tableConfig: TableConfig = {
         }
     },
     data: {
+        onChain: false,
         name: "Data",
         url: "/backoffice/data",
         columns:
@@ -213,6 +225,7 @@ export const tableConfig: TableConfig = {
         }
     },
     finalIndicator: {
+        onChain: false,
         name: "Final Indicator",
         url: "/backoffice/finalIndicator",
         columns:
@@ -228,6 +241,7 @@ export const tableConfig: TableConfig = {
         }
     },
     indicator: {
+        onChain: false,
         name: "Indicator",
         url: "/backoffice/indicator",
         columns:
@@ -249,6 +263,7 @@ export const tableConfig: TableConfig = {
         }
     },
     productionActivityData: {
+        onChain: false,
         name: "Production Activity",
         url: "/backoffice/productionActivityData",
         columns:
@@ -266,6 +281,7 @@ export const tableConfig: TableConfig = {
         }
     },
     productionUnit: {
+        onChain: false,
         name: "Production Unit",
         url: "/backoffice/productionUnit",
         columns:
@@ -282,6 +298,7 @@ export const tableConfig: TableConfig = {
         }
     },
     rawMaterial: {
+        onChain: false,
         name: "Raw Material",
         url: "/backoffice/rawMaterial",
         columns:
@@ -302,6 +319,7 @@ export const tableConfig: TableConfig = {
         }
     },
     socialEconomicData: {
+        onChain: false,
         name: "Social Economic",
         url: "/backoffice/socialEconomicData",
         columns:
@@ -318,6 +336,7 @@ export const tableConfig: TableConfig = {
         }
     },
     user: {
+        onChain: false,
         name: "Users",
         url: "/backoffice/user",
         columns:
@@ -334,4 +353,25 @@ export const tableConfig: TableConfig = {
             insertRecord: '/users/insert',
         }
     },
+
+    registration: {
+        onChain: true,
+        name: "Registration",
+        url: "/activities/registration",
+        columns:
+            [
+                { field: 'id', headerName: 'id', width: 300 },
+                { field: 'email', headerName: 'email', flex: 1, editable: true },
+                { field: 'name', headerName: 'name', flex: 1, editable: true },
+                { field: 'permission', headerName: 'permission', flex: 1, editable: true },
+            ],
+        endpoints: {
+            getAll: '/onchain/channel/activities/logistical/registration',
+            deleteRecord: '',
+            updateRecord: '',
+            insertRecord: '/onchain/channel/activities/logistical/registration/insert',
+        }
+    },
+
+
 }

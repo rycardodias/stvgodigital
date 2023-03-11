@@ -7,11 +7,14 @@
     "update": "Alterar",
     "add": "Adicionar",
     "Backoffice": "Gestão de dados",
+    "Activities": "Actividades",
     "id": "Identificador",
     "legalName": "Nome Legal",
     "shortName": "Nome Curto",
     "fiscalNumber": "Número Fiscal",
     "caeType": "Tipo Cae",
     "addRecord": "Adicionar Registo",
-    "actions": "Ações"
+    "actions": "Ações",
+    "submit": "Submeter",
+    "next": "Seguinte"
 }

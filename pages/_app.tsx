@@ -11,6 +11,9 @@ import Head from 'next/head'
 import ClientSession from 'components/ClientSession';
 import Link from 'next/link';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
   return (
     <ClientSession>
@@ -26,8 +29,13 @@ const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <ResponsiveAppBar session={session} />
-            {session.error ? <Link href="/login">Login</Link>
-              : <Component {...pageProps} session={session} />
+            {session.error ?
+              <Link href="/login">Login</Link>
+              : (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Component {...pageProps} session={session} />
+                </LocalizationProvider>
+              )
             }
 
 

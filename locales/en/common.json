@@ -7,11 +7,14 @@
     "update": "Update",
     "add": "Add",
     "backoffice": "Backoffice",
+    "Activities": "Activities",
     "id": "identifier",
     "legalName": "Legal Name",
     "shortName": "Short Name",
     "fiscalNumber": "Fiscal Number",
     "caeType": "Cae Type",
     "addRecord": "Add Record",
-    "actions": "Actions"
+    "actions": "Actions",
+    "submit": "Submit",
+    "next": "Next"
 }

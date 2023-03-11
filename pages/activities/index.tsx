@@ -19,9 +19,14 @@ export default function index({ session }: SessionInterface) {
     const { t, lang } = useTranslation('common')
 
     return (
-        <Grid container spacing={2} marginTop={1}>
-            <TablesList />
+        <Grid container spacing={2} marginTop={0}>
+            <Grid item xs={2}>
+                <TablesList onChainRecords />
+            </Grid>
+            <Grid item xs={10}>
+            </Grid>
         </Grid>
+
     )
 }
 

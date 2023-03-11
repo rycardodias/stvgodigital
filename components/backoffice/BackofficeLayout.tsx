@@ -127,7 +127,6 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
 
     const processRowUpdate = (newRow: GridRowModel) => {
         const updatedRow = { ...newRow, isNew: false };
-        console.log(newRow)
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
         if (newRow.isNew) {
@@ -193,10 +192,7 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
                 <TableGridList />
             </Grid>
             <Grid item xs={10}>
-                <div style={{ height: '80vh', width: '100%' }}>
-                    {/* {error && <div>Failed to load</div>}
-                    {!data && <div>Loading...</div>} */}
-
+                <div style={{ height: '90vh', width: '100%' }}>
                     {<DataGrid
                         rows={rows}
                         columns={columnsGrid}
