@@ -9,7 +9,7 @@ import useTranslation from 'next-translate/useTranslation'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Grid, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import TablesList from 'components/backoffice/TablesList'
-import BasicForm from 'components/forms/BasicForm'
+import BasicForm from 'components/forms/RegistrationForm'
 
 export default function index({ session }: SessionInterface) {
     if (!session.user.permission) {

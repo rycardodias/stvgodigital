@@ -14,7 +14,7 @@ class ClientSession extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: { name: null, permission: null },
+            user: { name: null, permission: null, companyId: null },
             error: false,
             router: props.router // used to have useRouter property
         }
@@ -38,16 +38,17 @@ class ClientSession extends React.Component {
             ls.set('user', JSON.stringify(response.data));
 
             return true;
-
         } catch (error) {
             this.setState({ error })
             return false;
         }
     }
 
+
+
     logout = async () => {
         await sendRequest('/users/logout', 'POST', undefined)
-        this.setState({ user: { name: null, permission: null } })
+        this.setState({ user: { name: null, permission: null, companyId: null } })
         ls.remove('user');
 
         this.state.router.push('/')

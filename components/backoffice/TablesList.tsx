@@ -1,5 +1,6 @@
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material'
 import Link from 'next/link'
+import { useState } from 'react';
 import { tableConfig } from './tableStructure';
 
 interface TableGridListProps {
@@ -11,7 +12,6 @@ export default function TableGridList({ onChainRecords = false }: TableGridListP
 
     for (const tableName in tableConfig) {
         const item = tableConfig[tableName]
-        console.log(onChainRecords, item.onChain)
         if (item.onChain === onChainRecords)
             list.push({ name: item.name, url: item.url })
     }
@@ -22,12 +22,12 @@ export default function TableGridList({ onChainRecords = false }: TableGridListP
             {list && list.map(item => {
                 return (
                     <ListItem disablePadding key={item.name}>
-                        <ListItemButton component={Link} href={item.url} >
+                        <ListItemButton component={Link} href={item.url} selected={item.url === window.location.pathname}>
                             <ListItemText primary={item.name} />
                         </ListItemButton>
                     </ListItem>
                 )
             })}
-        </List>
+        </List >
     );
 }

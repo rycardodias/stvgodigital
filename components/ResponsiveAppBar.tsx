@@ -16,6 +16,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import SessionInterface from 'interfaces/SessionInterface';
+import BlockchainLoginDialog from '../components/forms/BlockchainLoginDialog'
 
 const pages: ReadonlyArray<any> = [
   { name: 'Backoffice', permissions: ['ADMIN',] },
@@ -137,7 +138,7 @@ function ResponsiveAppBar({ session }: SessionInterface) {
             && (
               <Button key={"login"} component={Link} href={'/login'}
                 sx={{ my: 2, color: 'white', display: 'block' }}>
-                {t('Login')}
+                {t('login')}
               </Button>
             )
           }

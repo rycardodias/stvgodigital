@@ -353,17 +353,13 @@ export const tableConfig: TableConfig = {
             insertRecord: '/users/insert',
         }
     },
-
     registration: {
         onChain: true,
         name: "Registration",
         url: "/activities/registration",
         columns:
             [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'email', headerName: 'email', flex: 1, editable: true },
-                { field: 'name', headerName: 'name', flex: 1, editable: true },
-                { field: 'permission', headerName: 'permission', flex: 1, editable: true },
+
             ],
         endpoints: {
             getAll: '/onchain/channel/activities/logistical/registration',
@@ -372,6 +368,73 @@ export const tableConfig: TableConfig = {
             insertRecord: '/onchain/channel/activities/logistical/registration/insert',
         }
     },
+    reception: {
+        onChain: true,
+        name: "Reception",
+        url: "/activities/reception",
+        columns:
+            [
+
+            ],
+        endpoints: {
+            getAll: '/onchain/channel/activities/logistical/reception',
+            deleteRecord: '',
+            updateRecord: '',
+            insertRecord: '/onchain/channel/activities/logistical/reception/insert',
+        }
+    },
+    transportation: {
+        onChain: true,
+        name: "Transportation",
+        url: "/activities/transportation",
+        columns:
+            [
+
+            ],
+        endpoints: {
+            getAll: '/onchain/channel/activities/logistical/transportation',
+            deleteRecord: '',
+            updateRecord: '',
+            insertRecord: '/onchain/channel/activities/logistical/transportation/insert',
+        }
+    },
+    production: {
+        onChain: true,
+        name: "Production",
+        url: "/activities/production",
+        columns:
+            [
+                { field: 'productionID', headerName: 'productionID'},
+                { field: 'companyID', headerName: 'companyID' },
+                { field: 'productionTypeID', headerName: 'productionTypeID' },
+                { field: 'activityStartDate', headerName: 'activityStartDate' },
+                { field: 'activityEndDate', headerName: 'activityEndDate' },
+                { field: 'activityEndDate', headerName: 'activityEndDate' },
+                { field: 'ecs', headerName: 'ecs' },
+                { field: 'ses', headerName: 'ses' },
+            ],
+        endpoints: {
+            getAll: '/onchain/channel/activities/production',
+            deleteRecord: '',
+            updateRecord: '',
+            insertRecord: '/onchain/channel/activities/production/insert',
+        }
+    },
+    // batch: {
+    //     onChain: true,
+    //     name: "Batch",
+    //     url: "/activities/batch",
+    //     columns:
+    //         [
+
+    //         ],
+    //     endpoints: {
+    //         getAll: '/onchain/channel/batch',
+    //         deleteRecord: '',
+    //         updateRecord: '',
+    //         insertRecord: '/onchain/channel/batch/insert',
+    //     }
+    // },
 
 
 }

@@ -1,7 +1,8 @@
 {
     "AppTitle": "StvGoDigital",
-    "Login": "Login",
+    "login": "Login",
     "Logout": "Logout",
+    "cancel": "Cancel",
     "Open settings": "Open Settings",
     "delete": "Delete",
     "update": "Update",
@@ -16,5 +17,6 @@
     "addRecord": "Add Record",
     "actions": "Actions",
     "submit": "Submit",
-    "next": "Next"
+    "next": "Next",
+    "previous": "Previous"
 }

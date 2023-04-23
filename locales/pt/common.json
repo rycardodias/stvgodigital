@@ -1,7 +1,8 @@
 {
     "AppTitle": " StvGoDigital",
-    "Login": "Entrar",
+    "login": "Entrar",
     "Logout": "Sair",
+    "cancel": "Cancelar",
     "Open settings": "Abrir definições",
     "delete": "Eliminar",
     "update": "Alterar",
@@ -16,5 +17,6 @@
     "addRecord": "Adicionar Registo",
     "actions": "Ações",
     "submit": "Submeter",
-    "next": "Seguinte"
+    "next": "Seguinte",
+    "previous": "Anterior"
 }

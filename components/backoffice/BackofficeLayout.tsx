@@ -46,7 +46,7 @@ type DataGridProps = {
 export default function DataGridComponent({ tableName }: DataGridProps) {
     const { t, lang } = useTranslation('common')
 
-    let { columns, endpoints } = tableConfig[tableName]
+    let { columns, endpoints, name } = tableConfig[tableName]
     const [rows, setRows] = useState([]);
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
