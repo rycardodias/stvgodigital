@@ -21,14 +21,15 @@ export default function BasicForm() {
         return newEvent;
     }, {
         receptionID: '',
-        productionUnitID: '',
+        productionUnitInternalID: '',
         activityDate: '',
         receivedBatchID: '',
         newBatchID: '',
         newBatchInternalID: '',
         isAccepted: '',
-        ECS: '',
-        SES: '',
+        transportScore: '',
+        ses: '',
+        distance: '',
     })
 
     const { endpoints } = tableConfig['reception']
@@ -44,80 +45,92 @@ export default function BasicForm() {
         } else {
             setEvent({
                 receptionID: '',
-                productionUnitID: '',
+                productionUnitInternalID: '',
                 activityDate: '',
                 receivedBatchID: '',
                 newBatchID: '',
                 newBatchInternalID: '',
                 isAccepted: '',
-                ECS: '',
-                SES: '',
+                transportScore: '',
+                ses: '',
+                distance: '',
             })
         }
     };
 
 
+
     return (
-        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px' }} onSubmit={handleSubmit} ref={formRef}>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                    <TextField label="Reception ID"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.receptionID} required
-                        onChange={(event) => setEvent({ receptionID: event.target.value })}
-                    />
-                    <TextField label="productionUnitID"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.productionUnitID} required
-                        onChange={(event) => setEvent({ productionUnitID: event.target.value })}
-                    />
-                    <TextField label="newBatchID"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.newBatchID} required
-                        onChange={(event) => setEvent({ newBatchID: event.target.value })}
-                    />
-                    <TextField label="isAccepted"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.isAccepted} required
-                        onChange={(event) => setEvent({ isAccepted: event.target.value })}
-                    />
-                    <TextField label="SES"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.SES} required
-                        onChange={(event) => setEvent({ SES: event.target.value })}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <StyledDataPicker label="activityDate"
-                        className='datepicker' format="DD/MM/YYYY"
-                        value={event.activityDate}
-                        onChange={(value) => setEvent({ activityDate: value })}
-                    />
-                    <TextField label="receivedBatchID"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.receivedBatchID} required
-                        onChange={(event) => setEvent({ receivedBatchID: event.target.value })}
-                    />
-                    <TextField label="newBatchInternalID"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.newBatchInternalID} required
-                        onChange={(event) => setEvent({ newBatchInternalID: event.target.value })}
-                    />
-                    <TextField label="ECS"
-                        variant="outlined" style={{ margin: '10px', width: '100%' }}
-                        value={event.ECS} required
-                        onChange={(event) => setEvent({ ECS: event.target.value })}
-                    />
-                </Grid>
+        <Box onSubmit={handleSubmit} ref={formRef}
+            component="form" noValidate autoComplete="off"
+            sx={{
+                '& .MuiTextField-root': { m: 1, width: '40ch' },
+            }}
+        >
+            <div>
+                <TextField label="Reception ID"
+                    variant="outlined"
+                    value={event.receptionID} required
+                    onChange={(event) => setEvent({ receptionID: event.target.value })}
+                />
+                <TextField label="Production Unit Internal ID"
+                    variant="outlined"
+                    value={event.productionUnitInternalID} required
+                    onChange={(event) => setEvent({ productionUnitInternalID: event.target.value })}
+                />
 
-                <Grid item xs={12} display="flex" justifyContent="flex-end">
-                    <Button variant="contained" color="primary" style={{ marginLeft: '10px' }} type="submit">
-                        {t('submit')}
-                    </Button>
-                </Grid>
-            </Grid>
+                <StyledDataPicker label="activityDate"
+                    className='datepicker' format="DD/MM/YYYY"
+                    value={event.activityDate}
+                    onChange={(value) => setEvent({ activityDate: value })}
+                />
+
+                <TextField label="Received Batch ID"
+                    variant="outlined"
+                    value={event.receivedBatchID} required
+                    onChange={(event) => setEvent({ receivedBatchID: event.target.value })}
+                />
+                <TextField label="New Batch ID"
+                    variant="outlined"
+                    value={event.newBatchID} required
+                    onChange={(event) => setEvent({ newBatchID: event.target.value })}
+                />
+                <TextField label="New Batch Internal ID"
+                    variant="outlined"
+                    value={event.newBatchInternalID} required
+                    onChange={(event) => setEvent({ newBatchInternalID: event.target.value })}
+                />
+
+                <TextField label="isAccepted"
+                    variant="outlined"
+                    value={event.isAccepted} required
+                    onChange={(event) => setEvent({ isAccepted: event.target.value })}
+                />
+                <TextField label="transportScore"
+                    variant="outlined"
+                    value={event.transportScore} required
+                    onChange={(event) => setEvent({ transportScore: event.target.value })}
+                />
+                <TextField label="ses"
+                    variant="outlined"
+                    value={event.ses} required
+                    onChange={(event) => setEvent({ ses: event.target.value })}
+                />
+                <TextField label="distance"
+                    variant="outlined"
+                    value={event.distance} required
+                    onChange={(event) => setEvent({ distance: event.target.value })}
+                />
 
 
-        </form >
+
+            </div>
+
+            <div>
+                <Button variant="contained" color="primary" style={{ marginLeft: '10px' }} type="submit">
+                    {t('submit')}
+                </Button>
+            </div>
+        </Box >
     );
 };

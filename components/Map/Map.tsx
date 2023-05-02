@@ -1,5 +1,5 @@
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 
 import { icon } from 'leaflet'
 import MapsCoordinates from 'interfaces/MapsCoordinates';
@@ -17,10 +17,8 @@ type MapProps = {
 
 const Map = ({ markers }: MapProps) => {
 
-
-
     return (
-        <MapContainer center={[41.6946, -8.83016]} zoom={13} scrollWheelZoom={false} style={{ height: "89vh" }}>
+        <MapContainer center={[41.6946, -8.83016]} zoom={8} scrollWheelZoom={false} style={{ height: "89vh" }}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -34,6 +32,10 @@ const Map = ({ markers }: MapProps) => {
                     </Marker>
                 )
             })}
+            <Polyline color='pink' 
+                positions={markers.map(item => {
+                    return [item.lat, item.lng]
+                })} />
         </MapContainer>
     )
 }

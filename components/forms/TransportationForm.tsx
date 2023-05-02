@@ -1,5 +1,5 @@
 import React, { useState, useReducer, Fragment, useRef } from 'react';
-import { TextField, Button, Grid, styled, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { TextField, Button, Grid, styled, RadioGroup, FormControlLabel, Radio, Box, MenuItem } from '@mui/material'
 import useTranslation from 'next-translate/useTranslation'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import sendRequest from 'lib/requests';
@@ -13,18 +13,11 @@ margin: 10px;
 
 export default function BasicForm() {
     const { t } = useTranslation('common')
-    const [currentStep, setCurrentStep] = useState(1);
+
+    const [batchComposition1, setbatchComposition1] = useState("")
+    const [batchComposition2, setbatchComposition2] = useState("")
 
     const formRef = useRef();
-
-    const handleNextClick = () => {
-        const valid: boolean = formRef.current.reportValidity()
-
-        valid && setCurrentStep(currentStep + 1);
-    }
-    const handlePreviousClick = () => {
-        setCurrentStep(currentStep - 1);
-    }
 
     const [event, setEvent] = useReducer((prev, next) => {
         const newEvent = { ...prev, ...next }
@@ -32,43 +25,33 @@ export default function BasicForm() {
         return newEvent;
     }, {
         transportID: '',
+        originProductionUnitInternalID: '',
         destinationProductionUnitID: '',
-        transportationTypeID: '', // enum
+        transportType: '',
         activityDate: '',
-        distance: '',
-        cost: '',
         isReturn: false,
-        inputBatch: {
-
-        },
+        inputBatches: {},
     })
+
 
     const { endpoints } = tableConfig['transportation']
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(event)
         const request = await sendRequest(endpoints.insertRecord, 'POST', event)
 
-        console.log(request)
         if (request.error) {
             //retornar erro
             alert('Error inserting record')
         } else {
-
-            setCurrentStep(1);
-
             setEvent({
                 transportID: '',
+                originProductionUnitInternalID: '',
                 destinationProductionUnitID: '',
-                transportationTypeID: '',
+                transportType: '',
                 activityDate: '',
-                distance: '',
-                cost: '',
                 isReturn: false,
-                inputBatch: {
-
-                }
+                inputBatches: {},
             })
 
         }
@@ -76,107 +59,95 @@ export default function BasicForm() {
 
     };
 
-    const level1Fields: JSX.Element = (
-        <Fragment>
-            <Grid item xs={12} sm={6}>
+    const transportTypes = ["ROAD", "MARITIME", "AIR", "RAIL", "INTERMODAL"];
+
+    return (
+        <Box onSubmit={handleSubmit} ref={formRef}
+            component="form" noValidate autoComplete="off"
+            sx={{
+                '& .MuiTextField-root': { m: 1, width: '40ch' },
+            }}
+        >
+            <div>
                 <TextField label="Transport ID"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
+                    variant="outlined"
                     value={event.transportID} required
                     onChange={(event) => setEvent({ transportID: event.target.value })}
                 />
-                <TextField label="destinationProductionUnitID"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
+                <TextField label="Origin Production Unit ID"
+                    variant="outlined"
+                    value={event.originProductionUnitInternalID} required
+                    onChange={(event) => setEvent({ originProductionUnitInternalID: event.target.value })}
+                />
+
+                <TextField label="Destination Production Unit ID"
+                    variant="outlined"
                     value={event.destinationProductionUnitID} required
                     onChange={(event) => setEvent({ destinationProductionUnitID: event.target.value })}
                 />
-                <TextField label="transportationTypeID"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
-                    value={event.transportationTypeID} required
-                    onChange={(event) => setEvent({ transportationTypeID: event.target.value })}
-                />
-                <TextField label="isReturn"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
-                    value={event.isReturn} required
-                    onChange={(event) => setEvent({ isReturn: event.target.value })}
-                />
 
-                {/* <RadioGroup value={event.isReturn} row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
-                    <FormControlLabel value={true} control={<Radio />} label="True" />
-                    <FormControlLabel value={false} control={<Radio />} label="False" />
-                </RadioGroup> */}
 
-            </Grid>
-            <Grid item xs={12} sm={6}>
+
+                <TextField label="Transport Type"
+                    variant="outlined"
+                    value={event.transportType} select
+                    onChange={(event) => setEvent({ transportType: event.target.value })}
+                >
+                    {transportTypes.map((item) => (
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                    ))}
+                </TextField>
+
                 <StyledDataPicker label="activityDate"
                     className='datepicker' format="DD/MM/YYYY"
                     value={event.activityDate}
                     onChange={(value) => setEvent({ activityDate: value })}
                 />
-                <TextField label="distance"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
-                    value={event.distance} required
-                    onChange={(event) => setEvent({ distance: event.target.value })}
+
+                <TextField label="Is Return"
+                    variant="outlined"
+                    value={event.isReturn} select
+                    onChange={(event) => setEvent({ isReturn: event.target.value })}
+                >
+                    <MenuItem key={'isReturnFalse'} value={'false'}>{'false'}</MenuItem>
+                    <MenuItem key={'isReturnTrue'} value={'true'}>{'true'}</MenuItem>
+                </TextField>
+
+            </div>
+
+            <div>
+                <TextField label="Batch Id"
+                    variant="outlined"
+                    required
+                    onChange={(event) => {
+                        setbatchComposition1(event.target.value);
+
+                        setEvent({
+                            inputBatches: {
+                                ...event.inputBatches, [event.target.value]: '',
+                            }
+                        })
+                    }}
                 />
-                <TextField label="cost"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
-                    value={event.cost} required
-                    onChange={(event) => setEvent({ cost: event.target.value })}
+                <TextField label="Batch Quantity"
+                    variant="outlined"
+                    value={event.inputBatches[batchComposition1]} required
+                    onChange={(event) => {
+                        setEvent({
+                            batchComposition: {
+                                ...event.inputBatches, [batchComposition1]: event.target.value,
+                            }
+                        })
+                    }}
                 />
-
-            </Grid>
-        </Fragment>
-    )
-
-    const level2Fields: JSX.Element = (
-        <Fragment>
-            <Grid item xs={12} sm={4}>
-                {/* <TextField label="InputBatch"
-                    variant="outlined" style={{ margin: '10px', width: '100%' }}
-                    value={event.inputBatch} required
-                    onChange={(event) => setEvent({ inputBatch: event.target.value })}
-                /> */}
-            </Grid>
-
-            <Grid item xs={12} sm={4}>
-
-            </Grid>
-
-            <Grid item xs={12} sm={4}>
-            </Grid>
-        </Fragment>
-    )
+            </div>
 
 
-
-
-    return (
-        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '20px' }} onSubmit={handleSubmit} ref={formRef}>
-            <Grid container spacing={3}>
-                {currentStep === 1 && level1Fields}
-                {currentStep === 2 && level2Fields}
-
-
-                <Grid item xs={12} display="flex" justifyContent="flex-end">
-                    {currentStep === 1 &&
-                        <Button variant="contained" color="primary" onClick={handleNextClick}>
-                            {t('next')}
-                        </Button>
-                    }
-
-                    {currentStep === 2 &&
-                        <Fragment>
-                            <Button variant="contained" color="primary" onClick={handlePreviousClick}>
-                                {t('previous')}
-                            </Button>
-                            <Button variant="contained" color="primary" style={{ marginLeft: '10px' }} type="submit">
-                                {t('submit')}
-                            </Button>
-                        </Fragment>
-                    }
-                </Grid>
-            </Grid>
-
-
-        </form >
+            <div>
+                <Button variant="contained" color="primary" style={{ marginLeft: '10px' }} type="submit">
+                    {t('submit')}
+                </Button>
+            </div>
+        </Box >
     );
 };
