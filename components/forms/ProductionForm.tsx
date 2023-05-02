@@ -101,26 +101,11 @@ export default function BasicForm() {
             <Grid container spacing={3}>
                 <Fragment>
                     <Grid item xs={12} sm={6}>
-                        <TextField label="Registration ID"
+                        <TextField label="Production ID"
                             variant="outlined" style={{ margin: '10px', width: '100%' }}
-                            value={event.registrationID} required
-                            onChange={(event) => setEvent({ registrationID: event.target.value })}
+                            value={event.productionID} required
+                            onChange={(event) => setEvent({ productionID: event.target.value })}
                         />
-
-                    </Grid>
-
-                    <Grid item xs={12} sm={6}>
-
-
-                        <TextField label="batchType"
-                            variant="outlined" style={{ margin: '10px', width: '100%' }}
-                            value={event.batchType} select
-                            onChange={(event) => setEvent({ batchType: event.target.value })}
-                        >
-                            {batchTypes.map((item) => (
-                                <MenuItem key={item} value={item}>{item}</MenuItem>
-                            ))}
-                        </TextField>
 
                         <TextField label="productionType"
                             variant="outlined" style={{ margin: '10px', width: '100%' }}
@@ -132,6 +117,25 @@ export default function BasicForm() {
                             ))}
                         </TextField>
 
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+
+                        <TextField label="Production Unit Internal ID"
+                            variant="outlined" style={{ margin: '10px', width: '100%' }}
+                            value={event.productionUnitInternalID} required
+                            onChange={(event) => setEvent({ productionUnitInternalID: event.target.value })}
+                        />
+
+                        <TextField label="batchType"
+                            variant="outlined" style={{ margin: '10px', width: '100%' }}
+                            value={event.batchType} select
+                            onChange={(event) => setEvent({ batchType: event.target.value })}
+                        >
+                            {batchTypes.map((item) => (
+                                <MenuItem key={item} value={item}>{item}</MenuItem>
+                            ))}
+                        </TextField>
 
                     </Grid>
                 </Fragment>

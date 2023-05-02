@@ -5,6 +5,7 @@ import '@fontsource/roboto/700.css';
 import "./global.css";
 import type { AppProps } from 'next/app'
 
+
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 
 import Head from 'next/head'
