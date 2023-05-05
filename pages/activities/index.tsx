@@ -26,6 +26,13 @@ export default function index({ session }: SessionInterface) {
             </Grid>
             <Grid item xs={10}>
                 {!ls.get('blockchainLoggedIn') && <BlockchainLoginDialog />}
+
+                <Button onClick={() => {
+                    sendRequest('/onchain/users/enroll', 'POST', {
+                        "id": "admin",
+                        "secret": "adminpw"
+                    })
+                }}>Login blockchain</Button>
             </Grid>
         </Grid>
 

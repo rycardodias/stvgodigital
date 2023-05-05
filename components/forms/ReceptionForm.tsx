@@ -36,7 +36,7 @@ export default function BasicForm() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(endpoints)
+
         const request = await sendRequest(endpoints.insertRecord, 'POST', event)
 
         if (request.error) {
@@ -55,6 +55,8 @@ export default function BasicForm() {
                 ses: '',
                 distance: '',
             })
+
+            alert(request.data)
         }
     };
 
@@ -103,9 +105,13 @@ export default function BasicForm() {
 
                 <TextField label="isAccepted"
                     variant="outlined"
-                    value={event.isAccepted} required
+                    value={event.isAccepted} select
                     onChange={(event) => setEvent({ isAccepted: event.target.value })}
-                />
+                >
+                    <MenuItem key={'isAcceptedFalse'} value={'false'}>{'false'}</MenuItem>
+                    <MenuItem key={'isAcceptedTrue'} value={'true'}>{'true'}</MenuItem>
+                </TextField>
+
                 <TextField label="transportScore"
                     variant="outlined"
                     value={event.transportScore} required

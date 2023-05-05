@@ -14,10 +14,10 @@ export default function BasicForm() {
     const { t } = useTranslation('common')
     const formRef = useRef();
 
-    const [inputBatches1, setInputBatches1] = useState("")
-    const [inputBatches2, setInputBatches2] = useState("")
-    const [batchComposition1, setbatchComposition1] = useState("")
-    const [batchComposition2, setbatchComposition2] = useState("")
+    const [inputBatches1, setInputBatches1] = useState({ key: '', quantity: 0 });
+    const [inputBatches2, setInputBatches2] = useState({ key: '', quantity: 0 })
+    const [batchComposition1, setbatchComposition1] = useState({ key: '', quantity: 0 })
+    const [batchComposition2, setbatchComposition2] = useState({ key: '', quantity: 0 })
 
     const [event, setEvent] = useReducer((prev, next) => {
         const newEvent = { ...prev, ...next }
@@ -32,15 +32,8 @@ export default function BasicForm() {
         batchType: '',
         batchInternalID: '',
         supplierID: '',
-        unit: '',
-        inputBatches: {
-            // "b-001": 100,
-            // "b-002":100
-        },
-        batchComposition: {
-            // "organic_cotton": 50,
-            // "polyamide6": 50
-        },
+        inputBatches: {},
+        batchComposition: {},
         quantity: '',
         finalScore: '',
         productionScore: '',
@@ -48,15 +41,28 @@ export default function BasicForm() {
     }
     )
 
-    const { endpoints } = tableConfig['registration']
+    const { endpoints } = tableConfig['production']
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+
+        setEvent({
+            inputBatches: {
+                ...(inputBatches1.key !== "" ? { [inputBatches1.key]: inputBatches1.quantity } : {}),
+                ...(inputBatches2.key !== "" ? { [inputBatches2.key]: inputBatches2.quantity } : {})
+            },
+
+            batchComposition: {
+                ...(batchComposition1.key !== "" ? { [batchComposition1.key]: batchComposition1.quantity } : {}),
+                ...(batchComposition2.key !== "" ? { [batchComposition2.key]: batchComposition2.quantity } : {})
+            }
+        })
         const request = await sendRequest(endpoints.insertRecord, 'POST', event)
 
         if (request.error) {
             alert('Error inserting record')
         } else {
+
             setEvent({
                 productionID: '',
                 productionUnitInternalID: '',
@@ -66,20 +72,19 @@ export default function BasicForm() {
                 batchType: '',
                 batchInternalID: '',
                 supplierID: '',
-                unit: '',
-                inputBatches: {
-                    // "b-001": 100,
-                    // "b-002":100
-                },
-                batchComposition: {
-                    // "organic_cotton": 50,
-                    // "polyamide6": 50
-                },
+                inputBatches: {},
+                batchComposition: {},
                 quantity: '',
                 finalScore: '',
                 productionScore: '',
                 ses: '',
             })
+
+            setInputBatches1({ key: '', quantity: 0 });
+            setInputBatches2({ key: '', quantity: 0 });
+
+            setbatchComposition1({ key: '', quantity: 0 });
+            setbatchComposition2({ key: '', quantity: 0 });
 
         }
     };
@@ -105,8 +110,6 @@ export default function BasicForm() {
         "DYEING_FINISHING",
         "CONFECTION",
     ];
-
-    var units = ["KG", "L", "M", "M2"];
 
     return (
         <Box onSubmit={handleSubmit} ref={formRef}
@@ -166,16 +169,6 @@ export default function BasicForm() {
                     onChange={(event) => setEvent({ supplierID: event.target.value })}
                 />
 
-                <TextField label="Unit" variant="outlined"
-                    value={event.unit} select
-                    onChange={(event) => setEvent({ unit: event.target.value })}
-                >
-                    {units.map((item) => (
-                        <MenuItem key={item} value={item}>{item}</MenuItem>
-                    ))}
-                </TextField>
-
-
                 <TextField label="quantity" variant="outlined"
                     value={event.quantity} required
                     onChange={(event) => setEvent({ quantity: event.target.value })}
@@ -201,26 +194,17 @@ export default function BasicForm() {
             <div>
                 <TextField label="Batch Id"
                     variant="outlined"
-                    required
+                    value={inputBatches1.key} required
                     onChange={(event) => {
-                        setInputBatches1(event.target.value);
-
-                        setEvent({
-                            inputBatches: {
-                                ...event.inputBatches, [event.target.value]: '',
-                            }
-                        })
+                        setInputBatches1({ key: event.target.value, quantity: 0 });
                     }}
                 />
                 <TextField label="Batch Quantity"
                     variant="outlined"
-                    value={event.inputBatches[inputBatches1]} required
+                    type='number'
+                    value={inputBatches1.quantity || ""} required
                     onChange={(event) => {
-                        setEvent({
-                            batchComposition: {
-                                ...event.inputBatches, [inputBatches1]: event.target.value,
-                            }
-                        })
+                        setInputBatches1({ ...inputBatches1, quantity: parseInt(event.target.value) });
                     }}
                 />
             </div>
@@ -228,55 +212,36 @@ export default function BasicForm() {
             <div>
                 <TextField label="Batch Id 2"
                     variant="outlined"
-                    required
+                    value={inputBatches2.key} required
                     onChange={(event) => {
-                        setInputBatches2(event.target.value);
-
-                        setEvent({
-                            inputBatches: {
-                                ...event.inputBatches, [event.target.value]: '',
-                            }
-                        })
+                        setInputBatches2({ key: event.target.value, quantity: 0 });
                     }}
                 />
                 <TextField label="Batch Quantity 2"
                     variant="outlined"
-                    value={event.inputBatches[inputBatches2]} required
+                    type='number'
+                    value={inputBatches2.quantity || ""} required
                     onChange={(event) => {
-                        setEvent({
-                            batchComposition: {
-                                ...event.inputBatches, [inputBatches2]: event.target.value,
-                            }
-                        })
+                        setInputBatches2({ ...inputBatches2, quantity: parseInt(event.target.value) });
                     }}
                 />
             </div>
 
 
-
             <div>
                 <TextField label="Composition Name"
                     variant="outlined"
-                    required
+                    value={batchComposition1.key} required
                     onChange={(event) => {
-                        setbatchComposition1(event.target.value);
+                        setbatchComposition1({ key: event.target.value, quantity: 0 });
 
-                        setEvent({
-                            batchComposition: {
-                                ...event.batchComposition, [event.target.value]: '',
-                            }
-                        })
                     }}
                 />
                 <TextField label="Composition Quantity"
                     variant="outlined"
-                    value={event.batchComposition[batchComposition1]} required
+                    value={batchComposition1.quantity || ""} required
                     onChange={(event) => {
-                        setEvent({
-                            batchComposition: {
-                                ...event.batchComposition, [batchComposition1]: event.target.value,
-                            }
-                        })
+                        setbatchComposition1({ ...batchComposition1, quantity: parseInt(event.target.value) })
                     }}
                 />
             </div>
@@ -284,29 +249,22 @@ export default function BasicForm() {
             <div>
                 <TextField label="Composition Name 2"
                     variant="outlined"
-                    required
+                    value={batchComposition2.key} required
                     onChange={(event) => {
-                        setbatchComposition2(event.target.value);
+                        setbatchComposition2({ key: event.target.value, quantity: 0 });
 
-                        setEvent({
-                            batchComposition: {
-                                ...event.batchComposition, [event.target.value]: '',
-                            }
-                        })
                     }}
                 />
                 <TextField label="Composition Quantity 2"
                     variant="outlined"
-                    value={event.batchComposition[batchComposition2]} required
+                    value={batchComposition2.quantity || ""} required
                     onChange={(event) => {
-                        setEvent({
-                            batchComposition: {
-                                ...event.batchComposition, [batchComposition2]: event.target.value,
-                            }
-                        })
+                        setbatchComposition2({ ...batchComposition2, quantity: parseInt(event.target.value) })
                     }}
                 />
             </div>
+
+
 
             <div>
                 <Button variant="contained" color="primary" style={{ marginLeft: '10px' }} type="submit">
