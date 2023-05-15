@@ -5,13 +5,13 @@ interface MapsCoordinates {
 
 export interface MapNodeType extends MapsCoordinates {
     ID: string;
+    docType: string,
+    mapInfo: any
 }
 
 export interface MapArcType {
     ID: string;
-    graphsInfo: {
-        initialNode: string;
-        finalNode: string;
-    }
-
+    activityConnection: boolean;
+    initialNode: any;
+    finalNode: any;
 }
