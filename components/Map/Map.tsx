@@ -1,9 +1,10 @@
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, LayersControl } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Polyline, Popup, LayersControl } from 'react-leaflet'
 import { icon } from 'leaflet'
 import { MapNodeType, MapArcType } from 'interfaces/MapsCoordinates';
 import { Fragment, useState } from 'react';
 import { Button } from '@mui/material';
+import { MapPopupHandler } from './MapPopupHandler';
 const icons: { [id: string]: any } = {
     rg:
         icon({
@@ -37,10 +38,12 @@ type MapProps = {
     arcs: Array<MapArcType>
 }
 
+
+
 const Map = ({ markers, arcs }: MapProps) => {
 
     const [showBatches, setshowBatches]: Array<any> = useState([])
-    const [selectedItem, setSelectedItem]: string = useState('')
+    const [selectedItem, setSelectedItem]: any = useState('')
 
     return (
 
@@ -51,32 +54,26 @@ const Map = ({ markers, arcs }: MapProps) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {markers.length > 0 && markers.map(item => {
-
                 if (item.docType === "b" && !showBatches.includes(item.ID)) return
                 return (
 
                     <Marker key={item.ID} position={[item.mapInfo.coordinates.lat, item.mapInfo.coordinates.lng]} icon={icons[item.docType]}
                         eventHandlers={{
-
                             click: (e) => {
                                 if (item.docType === "b") return
-                                // const closest = getSegment(e.latlng, e.sourceTarget);
-                                // setResults([...results, closest]);
-                                // console.log(item)
-                                if(item.ID === selectedItem) {
-                                    setSelectedItem('')
-                                    setshowBatches([])
-                                } else {
-                                    setshowBatches([])
-                                    setshowBatches((prevBatches: any) => prevBatches.concat(item.mapInfo.input, item.mapInfo.output));
-                                    setSelectedItem(item.ID)
-                                }
-                                
+
+                                // if (item.ID === selectedItem) {
+                                //     setSelectedItem('')
+                                //     setshowBatches([])
+                                // } else {
+                                //     setshowBatches([])
+                                //     // setshowBatches((prevBatches: any) => prevBatches.concat(item.mapInfo.input, item.mapInfo.output));
+                                //     setSelectedItem(item.ID)
+                                // }
+
                             }
                         }}>
-                        <Popup>
-                            {item.ID}
-                        </Popup>
+                        <MapPopupHandler item={item} />
                     </Marker>
                 )
             })
@@ -85,31 +82,32 @@ const Map = ({ markers, arcs }: MapProps) => {
 
                 if (!arc.activityConnection) {
 
-                    if ((showBatches.includes(arc.finalNode.ID) && arc.initialNode.ID === selectedItem) ||
-                        showBatches.includes(arc.initialNode.ID) && arc.finalNode.ID === selectedItem) { //showBatches.includes(arc.initialNode.ID) ||
-                        
-                        return (
-                            <Polyline key={arc.ID} color='black'
-                                positions={
-                                    [
-                                        arc.initialNode,
-                                        arc.finalNode
-                                    ]}
-                                eventHandlers={{
-                                    click: (e) => {
-                                        // const closest = getSegment(e.latlng, e.sourceTarget);
-                                        // setResults([...results, closest]);
-                                        console.log(arc.ID)
-                                    }
-                                }}
-                            >
-                            </Polyline >
-                        )
+                    // if ((showBatches.includes(arc.finalNode.ID) && arc.initialNode.ID === selectedItem) ||
+                    //     showBatches.includes(arc.initialNode.ID) && arc.finalNode.ID === selectedItem) { //showBatches.includes(arc.initialNode.ID) ||
 
-                    }
+                    //     return (
+                    //         <Polyline key={arc.ID} color='black'
+                    //             positions={
+                    //                 [
+                    //                     arc.initialNode,
+                    //                     arc.finalNode
+                    //                 ]}
+                    //             eventHandlers={{
+                    //                 click: (e) => {
+                    //                     // const closest = getSegment(e.latlng, e.sourceTarget);
+                    //                     // setResults([...results, closest]);
+                    //                     console.log(arc.ID)
+                    //                 }
+                    //             }}
+                    //         >
+                    //         </Polyline >
+                    //     )
+
+                    // }
                     return
 
-                } else {
+                }
+                else {
                     return (
                         <Polyline key={arc.ID} color='blue'
                             positions={
@@ -117,13 +115,6 @@ const Map = ({ markers, arcs }: MapProps) => {
                                     arc.initialNode,
                                     arc.finalNode
                                 ]}
-                            eventHandlers={{
-                                click: (e) => {
-                                    // const closest = getSegment(e.latlng, e.sourceTarget);
-                                    // setResults([...results, closest]);
-                                    console.log(arc.ID)
-                                }
-                            }}
                         >
                         </Polyline >
                     )
