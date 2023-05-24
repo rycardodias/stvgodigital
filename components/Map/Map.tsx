@@ -47,7 +47,7 @@ const Map = ({ markers, arcs }: MapProps) => {
 
     return (
 
-        <MapContainer center={[41.6946, -8.83016]} zoom={8} scrollWheelZoom={false} style={{ height: "89vh" }}>
+        <MapContainer center={[41.6946, -8.83016]} zoom={8} scrollWheelZoom={false} style={{ height: "90vh" }}>
 
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

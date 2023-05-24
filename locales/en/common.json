@@ -37,5 +37,13 @@
     "registration": "Registration",
     "reception": "Reception",
     "production": "Production",
-    "transportation": "Transportation"
+    "transportation": "Transportation",
+    "batchInternalID": "Batch Internal ID",
+    "batchType": "Batch Type",
+    "finalScore": "Final Score",
+    "isInTransit": "Is In Transit",
+    "latestOwner": "Latest Owner",
+    "quantity": "Quantity",
+    "supplierID": "Supplier ID",
+    "batchComposition": "Batch composition"
 }

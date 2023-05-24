@@ -37,5 +37,13 @@
     "registration": "Registo",
     "reception": "Receção",
     "production": "Produção",
-    "transportation": "Transporte"
+    "transportation": "Transporte",
+    "batchInternalID": "Número Interno de Lote",
+    "batchType": "Tipo de Lote",
+    "finalScore": "Pontuação Final",
+    "isInTransit": "Em Trânsito",
+    "latestOwner": "Último Dono",
+    "quantity": "Quantidade",
+    "supplierID": "Identificador Fornecedor",
+    "batchComposition": "Composição do Lote"
 }
