@@ -21,7 +21,7 @@ export default function index({ session }: SessionInterface) {
                 <TablesList onChainRecords />
             </Grid>
             <Grid item xs={10}>
-                {!ls.get('blockchainLoggedIn') && <BlockchainLoginDialog />}
+                {/* {!ls.get('blockchainLoggedIn') && <BlockchainLoginDialog />} */}
             </Grid>
         </Grid>
 
