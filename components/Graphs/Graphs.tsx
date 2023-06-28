@@ -3,18 +3,22 @@ import { MapNodeType, MapArcType } from 'interfaces/MapsCoordinates';
 import { Fragment, useState, useEffect } from 'react';
 import useTranslation from 'next-translate/useTranslation'
 import { parseISO, format } from 'date-fns';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 // @ts-ignore
 import { Graph } from "react-d3-graph";
-
 type MapProps = {
     markers: Array<MapNodeType>
-    arcs: Array<MapArcType>
+    arcs: Array<MapArcType>,
+    searchBatchClick: any
 }
 
-const Map = ({ markers, arcs }: MapProps) => {
+const Map = ({ markers, arcs, searchBatchClick }: MapProps) => {
     const size = useWindowSize();
     const { t, lang } = useTranslation('common')
 
+    const [inputValue, setInputValue] = useState('');
 
     function useWindowSize() {
         // Initialize state with undefined width/height so server and client renders match
@@ -136,6 +140,10 @@ const Map = ({ markers, arcs }: MapProps) => {
 
     }, [arcs])
 
+    const handleSearchClick = () => {
+        searchBatchClick(inputValue)
+    }
+
 
     // the graph configuration, just override the ones you need
     const myConfig = {
@@ -154,14 +162,13 @@ const Map = ({ markers, arcs }: MapProps) => {
     };
 
     const onClickNode = function (nodeId: any) {
-        const nodeObject = markers.find(node => node.ID === nodeId)
-        console.log(nodeObject)
-        setSelectedItem(nodeObject)
+        if (selectedItem && nodeId === selectedItem.ID) {
+            setSelectedItem(undefined);
+        } else {
+            const nodeObject = markers.find(node => node.ID === nodeId)
+            setSelectedItem(nodeObject)
+        }
     };
-
-    // const onClickLink = function (source: any, target: any) {
-    //     window.alert(`Clicked link between ${source} and ${target}`);
-    // };
 
     return (
         <>
@@ -171,15 +178,54 @@ const Map = ({ markers, arcs }: MapProps) => {
                     data={data}
                     config={myConfig}
                     onClickNode={onClickNode}
-                // onClickLink={onClickLink}
                 />
             }
 
-            {selectedItem.ID &&
+            <div
+                style={{
+                    position: 'absolute',
+                    top: '15vh',
+                    right: '2vw',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    flexDirection: 'row',
+                    zIndex: 10000,
+
+                }}
+            >
+                <TextField
+                    id="search-batch-tf"
+                    label={t('batch')}
+                    variant="standard"
+                    style={{
+                        width: '5rem', // Adjust the width as per your requirement
+                        marginBottom: '0.5rem',
+                        fontSize: '0.5rem',
+                        marginRight: '1rem', // Increase the margin value for more spacing
+                    }}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                />
+                <Button
+                    variant="outlined"
+                    style={{
+                        minWidth: '2rem',
+                        height: '2.5rem',
+                        fontSize: '0.8rem',
+                        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+
+                    }}
+                    onClick={() => searchBatchClick(inputValue)}
+                >
+                    {t('search')}
+                </Button>
+            </div>
+
+            {selectedItem && selectedItem.ID &&
                 <div
                     style={{
                         position: 'absolute',
-                        top: '15vh',
+                        top: '20vh',
                         right: '2vw',
                         padding: '10px',
                         backgroundColor: 'white',

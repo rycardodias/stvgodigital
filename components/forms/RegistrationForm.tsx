@@ -25,7 +25,6 @@ export default function BasicForm() {
         batchInternalID: '',
         supplierID: '',
         quantity: '',
-        finalScore: '',
         batchComposition: {},
     })
 
@@ -54,7 +53,6 @@ export default function BasicForm() {
                 batchInternalID: '',
                 supplierID: '',
                 quantity: '',
-                finalScore: '',
                 batchComposition: {},
             })
 
@@ -120,11 +118,15 @@ export default function BasicForm() {
                     onChange={(event) => setEvent({ quantity: event.target.value })}
                 />
 
-                <TextField label="Production Unit ID"
+                <TextField label="Production Unit"
                     variant="outlined"
-                    value={event.ProductionUnitID} required
+                    value={event.ProductionUnitID} select
                     onChange={(event) => setEvent({ ProductionUnitID: event.target.value })}
-                />
+                >
+                    {['PU1', 'InovafilMSP:PU1', 'ASampaioMSP:PU1', 'TintexMSP:PU1', 'TMGMSP:PU1',].map((item) => (
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                    ))}
+                </TextField>
 
                 <TextField label="batchType"
                     variant="outlined"
@@ -140,11 +142,6 @@ export default function BasicForm() {
                     variant="outlined"
                     value={event.supplierID} required
                     onChange={(event) => setEvent({ supplierID: event.target.value })}
-                />
-                <TextField label="Final Score"
-                    variant="outlined"
-                    value={event.finalScore} required
-                    onChange={(event) => setEvent({ finalScore: event.target.value })}
                 />
             </div>
 

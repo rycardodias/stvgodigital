@@ -20,7 +20,6 @@ const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
     <ClientSession>
       {(...clientSession: any) => {
         let session = clientSession[0]
-
         return (
           <>
             <Head>

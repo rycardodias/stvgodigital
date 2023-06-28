@@ -20,7 +20,7 @@ interface TableConfig {
 export const tableConfig: TableConfig = {
     activityTypeData: {
         onChain: false,
-        name: 'Activity Types',
+        name: 'activityTypeData',
         url: "/backoffice/activityTypeData",
         columns:
             [
@@ -36,26 +36,26 @@ export const tableConfig: TableConfig = {
             insertRecord: '/activityTypeData/insert',
         }
     },
-    activityTypeIndicator: {
-        onChain: false,
-        name: "Activity Type Indicator",
-        url: "/backoffice/activityTypeIndicator",
-        columns:
-            [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'ActivityTypeId', headerName: 'ActivityTypeId', flex: 1, editable: true, },
-                { field: 'IndicatorId', headerName: 'IndicatorId', flex: 1, editable: true, },
-            ],
-        endpoints: {
-            getAll: '/activityTypeIndicators',
-            deleteRecord: '/activityTypeIndicators/delete',
-            updateRecord: '/activityTypeIndicators/update',
-            insertRecord: '/activityTypeIndicators/insert',
-        }
-    },
+    // activityTypeIndicator: {
+    //     onChain: false,
+    //     name: "Activity Type Indicator",
+    //     url: "/backoffice/activityTypeIndicator",
+    //     columns:
+    //         [
+    //             { field: 'id', headerName: 'id', width: 300 },
+    //             { field: 'ActivityTypeId', headerName: 'ActivityTypeId', flex: 1, editable: true, },
+    //             { field: 'IndicatorId', headerName: 'IndicatorId', flex: 1, editable: true, },
+    //         ],
+    //     endpoints: {
+    //         getAll: '/activityTypeIndicators',
+    //         deleteRecord: '/activityTypeIndicators/delete',
+    //         updateRecord: '/activityTypeIndicators/update',
+    //         insertRecord: '/activityTypeIndicators/insert',
+    //     }
+    // },
     batchCertification: {
         onChain: false,
-        name: "Batch Certification",
+        name: "batchCertification",
         url: "/backoffice/batchCertification",
         columns:
             [
@@ -73,26 +73,26 @@ export const tableConfig: TableConfig = {
             insertRecord: '/batchCertifications/insert',
         }
     },
-    batchCertificationType: {
-        onChain: false,
-        name: "Batch Certification Types",
-        url: "/backoffice/batchCertificationType",
-        columns:
-            [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'name', headerName: 'name', flex: 1, editable: true },
-                { field: 'description', headerName: 'description', flex: 1, editable: true },
-            ],
-        endpoints: {
-            getAll: '/batchCertificationTypes',
-            deleteRecord: '/batchCertificationTypes/delete',
-            updateRecord: '/batchCertificationTypes/update',
-            insertRecord: '/batchCertificationTypes/insert',
-        }
-    },
+    // batchCertificationType: {
+    //     onChain: false,
+    //     name: "Batch Certification Types",
+    //     url: "/backoffice/batchCertificationType",
+    //     columns:
+    //         [
+    //             { field: 'id', headerName: 'id', width: 300 },
+    //             { field: 'name', headerName: 'name', flex: 1, editable: true },
+    //             { field: 'description', headerName: 'description', flex: 1, editable: true },
+    //         ],
+    //     endpoints: {
+    //         getAll: '/batchCertificationTypes',
+    //         deleteRecord: '/batchCertificationTypes/delete',
+    //         updateRecord: '/batchCertificationTypes/update',
+    //         insertRecord: '/batchCertificationTypes/insert',
+    //     }
+    // },
     certifyingEntity: {
         onChain: false,
-        name: "Certifying Entities",
+        name: "certifyingEntity",
         url: "/backoffice/certifyingEntity",
         columns:
             [
@@ -111,7 +111,7 @@ export const tableConfig: TableConfig = {
     },
     circularEnvironmentalData: {
         onChain: false,
-        name: "Circular Environmental",
+        name: "circularEnvironmentalData",
         url: "/backoffice/circularEnvironmentalData",
         columns:
             [
@@ -130,7 +130,7 @@ export const tableConfig: TableConfig = {
     },
     circularEnvironmentalFinalData: {
         onChain: false,
-        name: "Circular Environmental Final",
+        name: "circularEnvironmentalFinalData",
         url: "/backoffice/circularEnvironmentalFinalData",
         columns:
             [
@@ -147,7 +147,7 @@ export const tableConfig: TableConfig = {
     },
     companies: {
         onChain: false,
-        name: "Companies",
+        name: "companies",
         url: "/backoffice/companies",
         columns:
             [
@@ -164,69 +164,69 @@ export const tableConfig: TableConfig = {
             insertRecord: '/companies/insert',
         }
     },
-    companyCertification: {
-        onChain: false,
-        name: "Companies Certifications",
-        url: "/backoffice/companyCertification",
-        columns:
-            [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'issueDate', headerName: 'issueDate', flex: 1, editable: true },
-                { field: 'expirationDate', headerName: 'expirationDate', flex: 1, editable: true },
-                { field: 'CompanyId', headerName: 'CompanyId', flex: 1, editable: true },
-                { field: 'CompanyCertificationTypeId', headerName: 'CompanyCertificationTypeId', flex: 1, editable: true },
-                { field: 'CertifyingEntityId', headerName: 'CertifyingEntityId', flex: 1, editable: true },
-            ],
-        endpoints: {
-            getAll: '/companyCertifications',
-            deleteRecord: '/companyCertifications/delete',
-            updateRecord: '/companyCertifications/update',
-            insertRecord: '/companyCertifications/insert',
-        }
-    },
-    companyCertificationType: {
-        onChain: false,
-        name: "Company Certification Type",
-        url: "/backoffice/companyCertificationType",
-        columns:
-            [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'name', headerName: 'name', flex: 1, editable: true },
-                { field: 'description', headerName: 'description', flex: 1, editable: true },
-                { field: 'logo', headerName: 'logo', flex: 1, editable: true, },
-            ],
-        endpoints: {
-            getAll: '/companyCertificationTypes',
-            deleteRecord: '/companyCertificationTypes/delete',
-            updateRecord: '/companyCertificationTypes/update',
-            insertRecord: '/companyCertificationTypes/insert',
-        }
-    },
-    data: {
-        onChain: false,
-        name: "Data",
-        url: "/backoffice/data",
-        columns:
-            [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'textContentId', headerName: 'textContentId', flex: 1, editable: true },
-                { field: 'data', headerName: 'data', flex: 1, editable: true },
-                { field: 'unity', headerName: 'unity', flex: 1, editable: true, },
-                { field: 'description', headerName: 'description', flex: 1, editable: true, },
-                { field: 'group', headerName: 'group', flex: 1, editable: true, },
-                { field: 'master', headerName: 'master', flex: 1, editable: true, },
-                { field: 'formulaCode', headerName: 'formulaCode', flex: 1, editable: true, },
-            ],
-        endpoints: {
-            getAll: '/data',
-            deleteRecord: '/data/delete',
-            updateRecord: '/data/update',
-            insertRecord: '/data/insert',
-        }
-    },
+    // companyCertification: {
+    //     onChain: false,
+    //     name: "Companies Certifications",
+    //     url: "/backoffice/companyCertification",
+    //     columns:
+    //         [
+    //             { field: 'id', headerName: 'id', width: 300 },
+    //             { field: 'issueDate', headerName: 'issueDate', flex: 1, editable: true },
+    //             { field: 'expirationDate', headerName: 'expirationDate', flex: 1, editable: true },
+    //             { field: 'CompanyId', headerName: 'CompanyId', flex: 1, editable: true },
+    //             { field: 'CompanyCertificationTypeId', headerName: 'CompanyCertificationTypeId', flex: 1, editable: true },
+    //             { field: 'CertifyingEntityId', headerName: 'CertifyingEntityId', flex: 1, editable: true },
+    //         ],
+    //     endpoints: {
+    //         getAll: '/companyCertifications',
+    //         deleteRecord: '/companyCertifications/delete',
+    //         updateRecord: '/companyCertifications/update',
+    //         insertRecord: '/companyCertifications/insert',
+    //     }
+    // },
+    // companyCertificationType: {
+    //     onChain: false,
+    //     name: "Company Certification Type",
+    //     url: "/backoffice/companyCertificationType",
+    //     columns:
+    //         [
+    //             { field: 'id', headerName: 'id', width: 300 },
+    //             { field: 'name', headerName: 'name', flex: 1, editable: true },
+    //             { field: 'description', headerName: 'description', flex: 1, editable: true },
+    //             { field: 'logo', headerName: 'logo', flex: 1, editable: true, },
+    //         ],
+    //     endpoints: {
+    //         getAll: '/companyCertificationTypes',
+    //         deleteRecord: '/companyCertificationTypes/delete',
+    //         updateRecord: '/companyCertificationTypes/update',
+    //         insertRecord: '/companyCertificationTypes/insert',
+    //     }
+    // },
+    // data: {
+    //     onChain: false,
+    //     name: "Data",
+    //     url: "/backoffice/data",
+    //     columns:
+    //         [
+    //             { field: 'id', headerName: 'id', width: 300 },
+    //             { field: 'textContentId', headerName: 'textContentId', flex: 1, editable: true },
+    //             { field: 'data', headerName: 'data', flex: 1, editable: true },
+    //             { field: 'unity', headerName: 'unity', flex: 1, editable: true, },
+    //             { field: 'description', headerName: 'description', flex: 1, editable: true, },
+    //             { field: 'group', headerName: 'group', flex: 1, editable: true, },
+    //             { field: 'master', headerName: 'master', flex: 1, editable: true, },
+    //             { field: 'formulaCode', headerName: 'formulaCode', flex: 1, editable: true, },
+    //         ],
+    //     endpoints: {
+    //         getAll: '/data',
+    //         deleteRecord: '/data/delete',
+    //         updateRecord: '/data/update',
+    //         insertRecord: '/data/insert',
+    //     }
+    // },
     finalIndicator: {
         onChain: false,
-        name: "Final Indicator",
+        name: "finalIndicator",
         url: "/backoffice/finalIndicator",
         columns:
             [
@@ -242,7 +242,7 @@ export const tableConfig: TableConfig = {
     },
     indicator: {
         onChain: false,
-        name: "Indicator",
+        name: "indicator",
         url: "/backoffice/indicator",
         columns:
             [
@@ -264,7 +264,7 @@ export const tableConfig: TableConfig = {
     },
     productionActivityData: {
         onChain: false,
-        name: "Production Activity",
+        name: "productionActivityData",
         url: "/backoffice/productionActivityData",
         columns:
             [
@@ -282,7 +282,7 @@ export const tableConfig: TableConfig = {
     },
     productionUnit: {
         onChain: false,
-        name: "Production Unit",
+        name: "productionUnit",
         url: "/backoffice/productionUnit",
         columns:
             [
@@ -297,30 +297,30 @@ export const tableConfig: TableConfig = {
             insertRecord: '/productionUnits/insert',
         }
     },
-    rawMaterial: {
-        onChain: false,
-        name: "Raw Material",
-        url: "/backoffice/rawMaterial",
-        columns:
-            [
-                { field: 'id', headerName: 'id', width: 300 },
-                { field: 'textContentId', headerName: 'textContentId', flex: 1, editable: true },
-                { field: 'fiberName', headerName: 'fiberName', flex: 1, editable: true },
-                { field: 'climateChange', headerName: 'climateChange', flex: 1, editable: true },
-                { field: 'fossilDepletion', headerName: 'fossilDepletion', flex: 1, editable: true },
-                { field: 'freshwatterConsunsuption', headerName: 'freshwatterConsunsuption', flex: 1, editable: true },
-                { field: 'freshwatterEutrophication', headerName: 'freshwatterEutrophication', flex: 1, editable: true },
-            ],
-        endpoints: {
-            getAll: '/rawMaterials',
-            deleteRecord: '/rawMaterials/delete',
-            updateRecord: '/rawMaterials/update',
-            insertRecord: '/rawMaterials/insert',
-        }
-    },
+    // rawMaterial: {
+    //     onChain: false,
+    //     name: "Raw Material",
+    //     url: "/backoffice/rawMaterial",
+    //     columns:
+    //         [
+    //             { field: 'id', headerName: 'id', width: 300 },
+    //             { field: 'textContentId', headerName: 'textContentId', flex: 1, editable: true },
+    //             { field: 'fiberName', headerName: 'fiberName', flex: 1, editable: true },
+    //             { field: 'climateChange', headerName: 'climateChange', flex: 1, editable: true },
+    //             { field: 'fossilDepletion', headerName: 'fossilDepletion', flex: 1, editable: true },
+    //             { field: 'freshwatterConsunsuption', headerName: 'freshwatterConsunsuption', flex: 1, editable: true },
+    //             { field: 'freshwatterEutrophication', headerName: 'freshwatterEutrophication', flex: 1, editable: true },
+    //         ],
+    //     endpoints: {
+    //         getAll: '/rawMaterials',
+    //         deleteRecord: '/rawMaterials/delete',
+    //         updateRecord: '/rawMaterials/update',
+    //         insertRecord: '/rawMaterials/insert',
+    //     }
+    // },
     socialEconomicData: {
         onChain: false,
-        name: "Social Economic",
+        name: "socialEconomicData",
         url: "/backoffice/socialEconomicData",
         columns:
             [
@@ -337,7 +337,7 @@ export const tableConfig: TableConfig = {
     },
     user: {
         onChain: false,
-        name: "Users",
+        name: "users",
         url: "/backoffice/user",
         columns:
             [
@@ -355,7 +355,7 @@ export const tableConfig: TableConfig = {
     },
     registration: {
         onChain: true,
-        name: "Registration",
+        name: "registration",
         url: "/activities/registration",
         columns:
             [
@@ -370,7 +370,7 @@ export const tableConfig: TableConfig = {
     },
     reception: {
         onChain: true,
-        name: "Reception",
+        name: "reception",
         url: "/activities/reception",
         columns:
             [
@@ -385,7 +385,7 @@ export const tableConfig: TableConfig = {
     },
     transportation: {
         onChain: true,
-        name: "Transportation",
+        name: "transportation",
         url: "/activities/transportation",
         columns:
             [
@@ -400,11 +400,11 @@ export const tableConfig: TableConfig = {
     },
     production: {
         onChain: true,
-        name: "Production",
+        name: "production",
         url: "/activities/production",
         columns:
             [
-                { field: 'productionID', headerName: 'productionID'},
+                { field: 'productionID', headerName: 'productionID' },
                 { field: 'companyID', headerName: 'companyID' },
                 { field: 'productionTypeID', headerName: 'productionTypeID' },
                 { field: 'activityStartDate', headerName: 'activityStartDate' },
@@ -420,21 +420,4 @@ export const tableConfig: TableConfig = {
             insertRecord: '/onchain/channel/activities/production/insert',
         }
     },
-    // batch: {
-    //     onChain: true,
-    //     name: "Batch",
-    //     url: "/activities/batch",
-    //     columns:
-    //         [
-
-    //         ],
-    //     endpoints: {
-    //         getAll: '/onchain/channel/batch',
-    //         deleteRecord: '',
-    //         updateRecord: '',
-    //         insertRecord: '/onchain/channel/batch/insert',
-    //     }
-    // },
-
-
 }

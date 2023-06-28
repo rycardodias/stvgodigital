@@ -35,9 +35,6 @@ export default function BasicForm() {
         inputBatches: {},
         batchComposition: {},
         quantity: '',
-        finalScore: '',
-        productionScore: '',
-        ses: '',
     }
     )
 
@@ -75,9 +72,6 @@ export default function BasicForm() {
                 inputBatches: {},
                 batchComposition: {},
                 quantity: '',
-                finalScore: '',
-                productionScore: '',
-                ses: '',
             })
 
             setInputBatches1({ key: '', quantity: 0 });
@@ -124,10 +118,15 @@ export default function BasicForm() {
                     onChange={(event) => setEvent({ productionID: event.target.value })}
                 />
 
-                <TextField label="Production Unit InternalID" variant="outlined"
-                    value={event.productionUnitInternalID} required
+                <TextField label="Production Unit Internal ID"
+                    variant="outlined"
+                    value={event.productionUnitInternalID} select
                     onChange={(event) => setEvent({ productionUnitInternalID: event.target.value })}
-                />
+                >
+                    {['PU1', 'InovafilMSP:PU1', 'ASampaioMSP:PU1', 'TintexMSP:PU1', 'TMGMSP:PU1',].map((item) => (
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                    ))}
+                </TextField>
 
                 <TextField label="productionType" variant="outlined"
                     value={event.productionType} select
@@ -172,21 +171,6 @@ export default function BasicForm() {
                 <TextField label="quantity" variant="outlined"
                     value={event.quantity} required
                     onChange={(event) => setEvent({ quantity: event.target.value })}
-                />
-
-                <TextField label="finalScore" variant="outlined"
-                    value={event.finalScore} required
-                    onChange={(event) => setEvent({ finalScore: event.target.value })}
-                />
-
-                <TextField label="productionScore" variant="outlined"
-                    value={event.productionScore} required
-                    onChange={(event) => setEvent({ productionScore: event.target.value })}
-                />
-
-                <TextField label="ses" variant="outlined"
-                    value={event.ses} required
-                    onChange={(event) => setEvent({ ses: event.target.value })}
                 />
 
             </div>

@@ -45,5 +45,21 @@
     "latestOwner": "Último Dono",
     "quantity": "Quantidade",
     "supplierID": "Identificador Fornecedor",
-    "batchComposition": "Composição do Lote"
+    "batchComposition": "Composição do Lote",
+    "search": "Procurar",
+    "activityTypeData": "Info Tipos Atividade",
+    "activityTypes": "Tipos Atividade",
+    "batchCertification": "Certificação Lotes",
+    "certifyingEntity": "Entidades de certificação",
+    "circularEnvironmentalData": "Circular Ambiental",
+    "circularEnvironmentalFinalData": "Circular Ambiental Final",
+    "companies": "Empresas",
+    "finalIndicator": "Indicador Final",
+    "indicator": "Indicador",
+    "productionActivityData": "Atividade Produção",
+    "productionUnit": "Unidade Produção",
+    "socialEconomicData": "Socioeconomico",
+    "users": "Utilizadores",
+    "permission": "Permissão",
+    "name": "Nome"
 }

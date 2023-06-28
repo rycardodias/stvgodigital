@@ -30,10 +30,27 @@ export default function Home({ session }: SessionProps) {
     fetchData();
   }, []);
 
+  const handleSearchClick = (batchID: string) => {
+
+    const fetchData = async () => {
+      const response = await sendRequest('/onchain/channel/batch/graphMapModeID/' + batchID)
+
+      if (response.error) return
+
+      const data: any = response.data
+
+      setMarkers(data.nodes)
+
+      setArcs(data.arcs)
+    };
+
+    fetchData();
+  }
+
   return (
     <Fragment>
       {/* <TextField id="lote" label={t('lote')} /> */}
-      <Map markers={markers} arcs={arcs} />
+      <Map markers={markers} arcs={arcs} searchBatchClick={handleSearchClick} />
     </Fragment>
   )
 }

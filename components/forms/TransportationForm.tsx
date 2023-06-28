@@ -83,19 +83,26 @@ export default function BasicForm() {
                     value={event.transportID} required
                     onChange={(event) => setEvent({ transportID: event.target.value })}
                 />
+
                 <TextField label="Origin Production Unit ID"
                     variant="outlined"
-                    value={event.originProductionUnitInternalID} required
+                    value={event.originProductionUnitInternalID} select
                     onChange={(event) => setEvent({ originProductionUnitInternalID: event.target.value })}
-                />
+                >
+                    {['PU1', 'InovafilMSP:PU1', 'ASampaioMSP:PU1', 'TintexMSP:PU1', 'TMGMSP:PU1',].map((item) => (
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                    ))}
+                </TextField>
 
                 <TextField label="Destination Production Unit ID"
                     variant="outlined"
-                    value={event.destinationProductionUnitID} required
+                    value={event.destinationProductionUnitID} select
                     onChange={(event) => setEvent({ destinationProductionUnitID: event.target.value })}
-                />
-
-
+                >
+                    {['PU1', 'InovafilMSP:PU1', 'ASampaioMSP:PU1', 'TintexMSP:PU1', 'TMGMSP:PU1',].map((item) => (
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                    ))}
+                </TextField>
 
                 <TextField label="Transport Type"
                     variant="outlined"

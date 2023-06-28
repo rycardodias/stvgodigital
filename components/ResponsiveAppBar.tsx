@@ -19,8 +19,8 @@ import SessionInterface from 'interfaces/SessionInterface';
 import BlockchainLoginDialog from '../components/forms/BlockchainLoginDialog'
 
 const pages: ReadonlyArray<any> = [
-  { name: 'Backoffice', permissions: ['ADMIN',] },
-  { name: 'Activities', permissions: ['ADMIN',] },
+  { name: 'Backoffice', permissions: ['ADMIN'] },
+  { name: 'Activities', permissions: ['RESPONSABLE', 'MEMBER'] },
 ];
 const settings: ReadonlyArray<string> = ['Logout'];
 

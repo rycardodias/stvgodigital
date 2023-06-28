@@ -27,8 +27,6 @@ export default function BasicForm() {
         newBatchID: '',
         newBatchInternalID: '',
         isAccepted: '',
-        transportScore: '',
-        ses: '',
         distance: '',
     })
 
@@ -51,8 +49,6 @@ export default function BasicForm() {
                 newBatchID: '',
                 newBatchInternalID: '',
                 isAccepted: '',
-                transportScore: '',
-                ses: '',
                 distance: '',
             })
 
@@ -75,11 +71,16 @@ export default function BasicForm() {
                     value={event.receptionID} required
                     onChange={(event) => setEvent({ receptionID: event.target.value })}
                 />
+
                 <TextField label="Production Unit Internal ID"
                     variant="outlined"
-                    value={event.productionUnitInternalID} required
+                    value={event.productionUnitInternalID} select
                     onChange={(event) => setEvent({ productionUnitInternalID: event.target.value })}
-                />
+                >
+                    {['PU1', 'InovafilMSP:PU1', 'ASampaioMSP:PU1', 'TintexMSP:PU1', 'TMGMSP:PU1',].map((item) => (
+                        <MenuItem key={item} value={item}>{item}</MenuItem>
+                    ))}
+                </TextField>
 
                 <StyledDataPicker label="activityDate"
                     className='datepicker' format="DD/MM/YYYY"
@@ -112,16 +113,6 @@ export default function BasicForm() {
                     <MenuItem key={'isAcceptedTrue'} value={'true'}>{'true'}</MenuItem>
                 </TextField>
 
-                <TextField label="transportScore"
-                    variant="outlined"
-                    value={event.transportScore} required
-                    onChange={(event) => setEvent({ transportScore: event.target.value })}
-                />
-                <TextField label="ses"
-                    variant="outlined"
-                    value={event.ses} required
-                    onChange={(event) => setEvent({ ses: event.target.value })}
-                />
                 <TextField label="distance"
                     variant="outlined"
                     value={event.distance} required

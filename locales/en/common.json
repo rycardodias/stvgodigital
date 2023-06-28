@@ -45,5 +45,21 @@
     "latestOwner": "Latest Owner",
     "quantity": "Quantity",
     "supplierID": "Supplier ID",
-    "batchComposition": "Batch composition"
+    "batchComposition": "Batch composition",
+    "search": "Search",
+    "activityTypeData": "Activity Type Data",
+    "activityTypes": "Activity Types",
+    "batchCertification": "Batch Certification",
+    "certifyingEntity": "Certification Entities",
+    "circularEnvironmentalData": "Circular Environmental",
+    "circularEnvironmentalFinalData": "Circular Environmental Final",
+    "companies": "Companies",
+    "finalIndicator": "Final Indicator",
+    "indicator": "Indicator",
+    "productionActivityData": "Production Activity",
+    "productionUnit": "Production Unit",
+    "socialEconomicData": "Social Economic",
+    "users": "Users",
+    "permission": "Permission",
+    "name": "Name"
 }

@@ -141,7 +141,11 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
 
 
     const columnsGrid: GridColumns = [
-        ...columns,
+        ...columns.map((column: any) => {
+            // Modify the desired property of each column object
+            // For example, change the "width" property
+            return { ...column, headerName: t(column.headerName) };
+        }),
         {
             field: 'actions',
             type: 'actions',
