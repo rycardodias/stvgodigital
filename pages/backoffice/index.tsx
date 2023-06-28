@@ -7,7 +7,7 @@ import useTranslation from 'next-translate/useTranslation'
 import { Grid,  } from '@mui/material'
 import TablesList from 'components/backoffice/TablesList'
 
-export default function index({ session }: SessionInterface) {
+export default function Index({ session }: SessionInterface) {
 
     if (!session.user.permission) {
         return UnAuthenticated()
@@ -15,8 +15,6 @@ export default function index({ session }: SessionInterface) {
     if (session.user.permission !== 'ADMIN') {
         return UnAuthorized()
     }
-
-    const { t, lang } = useTranslation('common')
 
     return (
         <Grid container spacing={2} marginTop={1}>

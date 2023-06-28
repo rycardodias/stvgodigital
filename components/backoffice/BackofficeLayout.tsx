@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Fragment, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
-import { Box, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import TableGridList from './TablesList';
 import { tableConfig } from './tableStructure';
 import useSWR from 'swr'
@@ -43,11 +43,15 @@ type DataGridProps = {
     tableName: string;
 }
 
+type RowsType = {
+    id: string;
+};
+
 export default function DataGridComponent({ tableName }: DataGridProps) {
     const { t, lang } = useTranslation('common')
 
     let { columns, endpoints, name } = tableConfig[tableName]
-    const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState<Array<RowsType>>([]);
     const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
 
     const { data, error, mutate } = useSWR(endpoints.getAll, sendRequest)
@@ -120,6 +124,7 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
         });
 
         const editedRow = rows.find((row) => row.id === id);
+        // @ts-ignore
         if (editedRow!.isNew) {
             setRows(rows.filter((row) => row.id !== id));
         }
@@ -127,6 +132,7 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
 
     const processRowUpdate = (newRow: GridRowModel) => {
         const updatedRow = { ...newRow, isNew: false };
+        // @ts-ignore
         setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
         if (newRow.isNew) {
@@ -144,7 +150,7 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
         ...columns.map((column: any) => {
             // Modify the desired property of each column object
             // For example, change the "width" property
-            return { ...column, headerName: t(column.headerName) };
+            return { ...column, headerName: t(column.headerName), key: column.headerName };
         }),
         {
             field: 'actions',
@@ -158,11 +164,13 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
                 if (isInEditMode) {
                     return [
                         <GridActionsCellItem
+                            key={'save' + id}
                             icon={<SaveIcon />}
                             label="Save"
                             onClick={handleSaveClick(id)}
                         />,
                         <GridActionsCellItem
+                            key={'cancel' + id}
                             icon={<CancelIcon />}
                             label="Cancel"
                             className="textPrimary"
@@ -174,6 +182,7 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
 
                 return [
                     <GridActionsCellItem
+                        key={'edit' + id}
                         icon={<EditIcon />}
                         label="Edit"
                         className="textPrimary"
@@ -181,6 +190,7 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
                         color="inherit"
                     />,
                     <GridActionsCellItem
+                        key={'delete' + id}
                         icon={<DeleteIcon />}
                         label="Delete"
                         onClick={handleDeleteClick(id)}

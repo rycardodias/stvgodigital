@@ -3,21 +3,14 @@ import React, { useState, useEffect } from 'react'
 import UnAuthenticated from 'components/UnAuthenticated'
 import UnAuthorized from 'components/UnAuthorized'
 import SessionInterface from 'interfaces/SessionInterface'
-import useTranslation from 'next-translate/useTranslation'
 
 import { Grid, } from '@mui/material'
 import TablesList from 'components/backoffice/TablesList'
 import ReceptionForm from 'components/forms/ReceptionForm'
 import ls from 'localstorage-slim';
 import BlockchainLoginDialog from 'components/forms/BlockchainLoginDialog'
-export default function index({ session }: SessionInterface) {
-    if (!session.user.permission) {
-        return UnAuthenticated()
-    }
-    if (!['RESPONSABLE', 'MEMBER'].includes(session.user.permission)) return <UnAuthorized />
 
-    const { t } = useTranslation('common')
-
+export default function Reception({ session }: SessionInterface) {
     const [blockchainLoggedIn, setBlockchainLoggedIn] = useState(false)
 
     useEffect(() => {
@@ -27,6 +20,12 @@ export default function index({ session }: SessionInterface) {
     const handleBlockchainLoggedIn = (value: boolean) => {
         setBlockchainLoggedIn(value)
     }
+    
+    if (!session.user.permission) {
+        return UnAuthenticated()
+    }
+    if (!['RESPONSABLE', 'MEMBER'].includes(session.user.permission)) return <UnAuthorized />
+
 
 
     return (

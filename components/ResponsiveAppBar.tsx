@@ -19,6 +19,7 @@ import SessionInterface from 'interfaces/SessionInterface';
 import BlockchainLoginDialog from '../components/forms/BlockchainLoginDialog'
 
 const pages: ReadonlyArray<any> = [
+  { name: 'Grafos', permissions: [''] },
   { name: 'Backoffice', permissions: ['ADMIN'] },
   { name: 'Activities', permissions: ['RESPONSABLE', 'MEMBER'] },
 ];
@@ -53,7 +54,7 @@ function ResponsiveAppBar({ session }: SessionInterface) {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xxl">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography variant="h6" noWrap component={Link} href={"/"}
@@ -96,7 +97,7 @@ function ResponsiveAppBar({ session }: SessionInterface) {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => {
-              if (page.permissions.includes(session.user.permission))
+              if (page.permissions.includes(session.user.permission) || page.permissions.includes(''))
                 return (
                   <Button key={page.name} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}
                     component={Link} href={'/' + page.name.toLowerCase()}>

@@ -19,7 +19,7 @@ export default function BasicForm() {
     const [batchComposition1, setbatchComposition1] = useState({ key: '', quantity: 0 })
     const [batchComposition2, setbatchComposition2] = useState({ key: '', quantity: 0 })
 
-    const [event, setEvent] = useReducer((prev, next) => {
+    const [event, setEvent] = useReducer((prev: any, next: any) => {
         const newEvent = { ...prev, ...next }
 
         return newEvent;

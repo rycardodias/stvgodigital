@@ -18,7 +18,7 @@ export default function BasicForm() {
 
     const formRef = useRef();
 
-    const [event, setEvent] = useReducer((prev, next) => {
+    const [event, setEvent] = useReducer((prev: any, next: any) => {
         const newEvent = { ...prev, ...next }
 
         return newEvent;
