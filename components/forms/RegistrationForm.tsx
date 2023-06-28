@@ -18,11 +18,11 @@ export default function BasicForm() {
 
         return newEvent;
     }, {
-        registrationID: '',
+        registrationID: 'rg-',
         ProductionUnitID: '',
-        batchID: '',
+        batchID: 'b-',
         batchType: '',
-        batchInternalID: '',
+        batchInternalID: 'b-',
         supplierID: '',
         quantity: '',
         batchComposition: {},
@@ -46,11 +46,11 @@ export default function BasicForm() {
             alert('Error inserting record')
         } else {
             setEvent({
-                registrationID: '',
+                registrationID: 'rg-',
                 ProductionUnitID: '',
-                batchID: '',
+                batchID: 'b-',
                 batchType: '',
-                batchInternalID: '',
+                batchInternalID: 'b-',
                 supplierID: '',
                 quantity: '',
                 batchComposition: {},

@@ -24,13 +24,13 @@ export default function BasicForm() {
 
         return newEvent;
     }, {
-        productionID: '',
+        productionID: 'p-',
         productionUnitInternalID: '',
         productionType: '',
         activityStartDate: '',
-        batchID: '',
+        batchID: 'b-',
         batchType: '',
-        batchInternalID: '',
+        batchInternalID: 'b-',
         supplierID: '',
         inputBatches: {},
         batchComposition: {},
@@ -61,13 +61,13 @@ export default function BasicForm() {
         } else {
 
             setEvent({
-                productionID: '',
+                productionID: 'p-',
                 productionUnitInternalID: '',
                 productionType: '',
                 activityStartDate: '',
-                batchID: '',
+                batchID: 'b-',
                 batchType: '',
-                batchInternalID: '',
+                batchInternalID: 'b-',
                 supplierID: '',
                 inputBatches: {},
                 batchComposition: {},

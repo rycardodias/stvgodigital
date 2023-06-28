@@ -23,7 +23,7 @@ export default function BasicForm() {
 
         return newEvent;
     }, {
-        transportID: '',
+        transportID: 't-',
         originProductionUnitInternalID: '',
         destinationProductionUnitID: '',
         transportType: '',
@@ -51,7 +51,7 @@ export default function BasicForm() {
             alert('Error inserting record')
         } else {
             setEvent({
-                transportID: '',
+                transportID: 't-',
                 originProductionUnitInternalID: '',
                 destinationProductionUnitID: '',
                 transportType: '',

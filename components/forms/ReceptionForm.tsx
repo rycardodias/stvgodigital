@@ -20,12 +20,12 @@ export default function BasicForm() {
 
         return newEvent;
     }, {
-        receptionID: '',
+        receptionID: 'rc-',
         productionUnitInternalID: '',
         activityDate: '',
-        receivedBatchID: '',
-        newBatchID: '',
-        newBatchInternalID: '',
+        receivedBatchID: 'b-',
+        newBatchID: 'b-',
+        newBatchInternalID: 'b-',
         isAccepted: '',
         distance: '',
     })
@@ -42,12 +42,12 @@ export default function BasicForm() {
             alert('Error inserting record')
         } else {
             setEvent({
-                receptionID: '',
+                receptionID: 'rc-',
                 productionUnitInternalID: '',
                 activityDate: '',
-                receivedBatchID: '',
-                newBatchID: '',
-                newBatchInternalID: '',
+                receivedBatchID: 'b-',
+                newBatchID: 'b-',
+                newBatchInternalID: 'b-',
                 isAccepted: '',
                 distance: '',
             })
