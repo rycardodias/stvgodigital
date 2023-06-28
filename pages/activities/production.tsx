@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import UnAuthenticated from 'components/UnAuthenticated'
 import UnAuthorized from 'components/UnAuthorized'
 import SessionInterface from 'interfaces/SessionInterface'
@@ -17,7 +17,15 @@ export default function index({ session }: SessionInterface) {
     if (!['RESPONSABLE', 'MEMBER'].includes(session.user.permission)) return <UnAuthorized />
 
     const { t, lang } = useTranslation('common')
+    const [blockchainLoggedIn, setBlockchainLoggedIn] = useState(false)
 
+    useEffect(() => {
+        setBlockchainLoggedIn(ls.get('blockchainLoggedIn') || false)
+    }, [])
+
+    const handleBlockchainLoggedIn = (value: boolean) => {
+        setBlockchainLoggedIn(value)
+    }
     return (
         <Grid container spacing={2} marginTop={0}>
             <Grid item xs={2}>
@@ -25,7 +33,7 @@ export default function index({ session }: SessionInterface) {
             </Grid>
             <Grid item xs={10}>
                 {ls.get('blockchainLoggedIn') ? <ProductionForm />
-                    : <BlockchainLoginDialog />}
+                    : <BlockchainLoginDialog handleLogin={handleBlockchainLoggedIn}/>}
             </Grid>
         </Grid>
     )

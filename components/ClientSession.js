@@ -36,9 +36,11 @@ class ClientSession extends React.Component {
             if (response.data) this.setState({ user: response.data, error: false })
 
             ls.set('user', JSON.stringify(response.data));
+            ls.set('blockchainLoggedIn', false)
 
             return true;
         } catch (error) {
+            ls.set('blockchainLoggedIn', false)
             this.setState({ error })
             return false;
         }
@@ -50,6 +52,7 @@ class ClientSession extends React.Component {
         await sendRequest('/users/logout', 'POST', undefined)
         this.setState({ user: { name: null, permission: null, companyId: null } })
         ls.remove('user');
+        ls.set('blockchainLoggedIn', false)
 
         this.state.router.push('/')
     }

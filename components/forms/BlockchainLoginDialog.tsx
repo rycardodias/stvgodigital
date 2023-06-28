@@ -11,7 +11,7 @@ import useTranslation from 'next-translate/useTranslation'
 import sendRequest from 'lib/requests';
 import ls from 'localstorage-slim';
 
-export default function FormDialog() {
+export default function FormDialog({ handleLogin }: any) {
     const [open, setOpen] = React.useState(false);
 
     const { t, lang } = useTranslation('common')
@@ -41,6 +41,7 @@ export default function FormDialog() {
         console.log(request)
         if (request.error) {
             //retornar erro
+            ls.set('blockchainLoggedIn', false)
             console.log('Error inserting record')
         } else {
             setEvent({
@@ -49,6 +50,13 @@ export default function FormDialog() {
             })
 
             ls.set('blockchainLoggedIn', true)
+            handleLogin(true)
+
+
+            setTimeout(() => {
+                ls.set('blockchainLoggedIn', false)
+                handleLogin(false);
+            }, 3 * 60 * 1000);
 
             handleClose()
         }

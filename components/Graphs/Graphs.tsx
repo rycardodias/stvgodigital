@@ -225,8 +225,8 @@ const Map = ({ markers, arcs, searchBatchClick }: MapProps) => {
                 <div
                     style={{
                         position: 'absolute',
-                        top: '20vh',
-                        right: '2vw',
+                        top: '15vh',
+                        left: '2vw',
                         padding: '10px',
                         backgroundColor: 'white',
                         border: '1px solid gray',
