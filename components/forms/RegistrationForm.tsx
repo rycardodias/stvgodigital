@@ -15,7 +15,7 @@ export default function BasicForm() {
 
     const [event, setEvent] = useReducer((prev: any, next: any) => {
         const newEvent = { ...prev, ...next }
-
+        console.log(newEvent)
         return newEvent;
     }, {
         registrationID: 'rg-',
@@ -30,20 +30,26 @@ export default function BasicForm() {
 
     const { endpoints } = tableConfig['registration']
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
-        setEvent({
+    const handleBatchCompositionUpdate = () => {
+        return {
             batchComposition: {
                 ...(batchComposition1.key !== "" ? { [batchComposition1.key]: batchComposition1.quantity } : {}),
                 ...(batchComposition2.key !== "" ? { [batchComposition2.key]: batchComposition2.quantity } : {})
             }
-        })
+        };
+    };
 
-        const request = await sendRequest(endpoints.insertRecord, 'POST', event)
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        const composition = await handleBatchCompositionUpdate()
+
+        await setEvent(composition);
+
+        const request = await sendRequest(endpoints.insertRecord, 'POST', { ...event, ...composition });
 
         if (request.error) {
-            alert('Error inserting record')
+            // alert('Error inserting record')
         } else {
             setEvent({
                 registrationID: 'rg-',
@@ -151,7 +157,6 @@ export default function BasicForm() {
                     value={batchComposition1.key} required
                     onChange={(event) => {
                         setbatchComposition1({ key: event.target.value, quantity: 0 });
-
                     }}
                 />
                 <TextField label="Composition Quantity"
