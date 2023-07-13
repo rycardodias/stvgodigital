@@ -15,7 +15,7 @@ export default function BasicForm() {
 
     const [event, setEvent] = useReducer((prev: any, next: any) => {
         const newEvent = { ...prev, ...next }
-        console.log(newEvent)
+        
         return newEvent;
     }, {
         registrationID: 'rg-',
@@ -49,7 +49,7 @@ export default function BasicForm() {
         const request = await sendRequest(endpoints.insertRecord, 'POST', { ...event, ...composition });
 
         if (request.error) {
-            // alert('Error inserting record')
+            alert('Error inserting record')
         } else {
             setEvent({
                 registrationID: 'rg-',

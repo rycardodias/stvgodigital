@@ -35,16 +35,22 @@ export default function BasicForm() {
 
     const { endpoints } = tableConfig['transportation']
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
-        setEvent({
+    const handleInputBatchesUpdate = () => {
+        return {
             inputBatches: {
                 ...(inputBatches1.key !== "" ? { [inputBatches1.key]: inputBatches1.quantity } : {})
             }
-        })
+        };
+    };
 
-        const request = await sendRequest(endpoints.insertRecord, 'POST', event)
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        const inputBatches = await handleInputBatchesUpdate()
+
+        await setEvent(inputBatches);
+
+        const request = await sendRequest(endpoints.insertRecord, 'POST', { ...event, ...inputBatches })
 
         if (request.error) {
             //retornar erro

@@ -40,21 +40,37 @@ export default function BasicForm() {
 
     const { endpoints } = tableConfig['production']
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-
-        setEvent({
-            inputBatches: {
-                ...(inputBatches1.key !== "" ? { [inputBatches1.key]: inputBatches1.quantity } : {}),
-                ...(inputBatches2.key !== "" ? { [inputBatches2.key]: inputBatches2.quantity } : {})
-            },
-
+    const handleBatchCompositionUpdate = () => {
+        return {
             batchComposition: {
                 ...(batchComposition1.key !== "" ? { [batchComposition1.key]: batchComposition1.quantity } : {}),
                 ...(batchComposition2.key !== "" ? { [batchComposition2.key]: batchComposition2.quantity } : {})
             }
-        })
-        const request = await sendRequest(endpoints.insertRecord, 'POST', event)
+        };
+    };
+
+    const handleInputBatchesUpdate = () => {
+        return {
+            inputBatches: {
+                ...(inputBatches1.key !== "" ? { [inputBatches1.key]: inputBatches1.quantity } : {}),
+                ...(inputBatches2.key !== "" ? { [inputBatches2.key]: inputBatches2.quantity } : {})
+            }
+        };
+    };
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        const inputBatches = await handleInputBatchesUpdate()
+        
+        await setEvent(inputBatches);
+
+        const composition = await handleBatchCompositionUpdate()
+
+        await setEvent(composition);
+
+
+        const request = await sendRequest(endpoints.insertRecord, 'POST', { ...event, ...composition, ...inputBatches })
 
         if (request.error) {
             alert('Error inserting record')
