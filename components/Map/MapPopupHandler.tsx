@@ -7,7 +7,6 @@ export const MapPopupHandler = ({ item }: any) => {
 
     const { t, lang } = useTranslation('common')
 
-    console.log(item)
     let PopupContent: ReactElement | undefined;
 
     switch (item.docType) {

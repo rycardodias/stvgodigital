@@ -139,7 +139,11 @@ export default function DataGridComponent({ tableName }: DataGridProps) {
             sendRequest(endpoints.insertRecord,
                 'POST',
                 newRow)
+        } else {
+            sendRequest(endpoints.updateRecord, 'PUT', newRow)
         }
+
+
 
 
         return updatedRow;

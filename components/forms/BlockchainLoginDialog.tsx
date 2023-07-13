@@ -38,7 +38,6 @@ export default function FormDialog({ handleLogin }: any) {
         e.preventDefault();
         const request = await sendRequest('/onchain/users/enroll', 'POST', event)
 
-        console.log(request)
         if (request.error) {
             //retornar erro
             ls.set('blockchainLoggedIn', false)
